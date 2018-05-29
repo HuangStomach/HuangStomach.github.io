@@ -108,20 +108,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="黄济芃的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="在大多数的sql学习中,众多学习者(包括我),可能非常容易在学习中浅尝辄止,满足于基础的增删改查,进而往往忽略了sql为我们提供的更多高效的特性,从而无论在开发还是使用上都会造成不便  HAVING 子句在日常使用中,使用较多的一种数据处理形式就是数据聚合,数据聚合令人第一时间想到的就是GROUP BY语句,具体使用可能如下: 123SELECT COUNT(*) AS cou">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql学习笔记(一)">
+<meta property="og:url" content="http://yoursite.com/2018/05/29/SQL学习笔记（一）/index.html">
 <meta property="og:site_name" content="黄济芃的博客">
+<meta property="og:description" content="在大多数的sql学习中,众多学习者(包括我),可能非常容易在学习中浅尝辄止,满足于基础的增删改查,进而往往忽略了sql为我们提供的更多高效的特性,从而无论在开发还是使用上都会造成不便  HAVING 子句在日常使用中,使用较多的一种数据处理形式就是数据聚合,数据聚合令人第一时间想到的就是GROUP BY语句,具体使用可能如下: 123SELECT COUNT(*) AS cou">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-29T15:17:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="黄济芃的博客">
+<meta name="twitter:title" content="sql学习笔记(一)">
+<meta name="twitter:description" content="在大多数的sql学习中,众多学习者(包括我),可能非常容易在学习中浅尝辄止,满足于基础的增删改查,进而往往忽略了sql为我们提供的更多高效的特性,从而无论在开发还是使用上都会造成不便  HAVING 子句在日常使用中,使用较多的一种数据处理形式就是数据聚合,数据聚合令人第一时间想到的就是GROUP BY语句,具体使用可能如下: 123SELECT COUNT(*) AS cou">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/29/SQL学习笔记（一）/"/>
 
 
 
@@ -131,7 +136,7 @@
   };
 </script>
 
-  <title>黄济芃的博客</title>
+  <title>sql学习笔记(一) | 黄济芃的博客</title>
   
 
 
@@ -178,8 +183,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -220,7 +224,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
@@ -288,9 +292,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -322,11 +326,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/29/SQL学习笔记（一）/" itemprop="url">
-                  sql学习笔记(一)
-                </a>
+          <h2 class="post-title" itemprop="name headline">sql学习笔记(一)
               
             
           </h2>
@@ -383,6 +383,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/29/SQL学习笔记（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2018/05/29/SQL学习笔记（一）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -407,9 +417,7 @@
       
 
       
-        
-          
-            <blockquote>
+        <blockquote>
 <p>在大多数的sql学习中,众多学习者(包括我),可能非常容易在学习中浅尝辄止,满足于基础的增删改查,进而往往忽略了sql为我们提供的更多高效的特性,从而无论在开发还是使用上都会造成不便</p>
 </blockquote>
 <h2 id="HAVING-子句"><a href="#HAVING-子句" class="headerlink" title="HAVING 子句"></a>HAVING 子句</h2><p>在日常使用中,使用较多的一种数据处理形式就是数据聚合,数据聚合令人第一时间想到的就是<code>GROUP BY</code>语句,具体使用可能如下:</p>
@@ -471,8 +479,6 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> eq_sample</span><br><span class="line"><span class="keyword">WHERE</span> (sender_id, operator_id)</span><br><span class="line"><span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>则会让sql重复使用一个子查询,尽量提高效率</p>
 
-          
-        
       
     </div>
 
@@ -490,14 +496,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/SQL/" rel="tag"># SQL</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -507,14 +519,26 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -535,8 +559,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -626,6 +659,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HAVING-子句"><span class="nav-number">1.</span> <span class="nav-text">HAVING 子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NULL-的陷阱"><span class="nav-number">2.</span> <span class="nav-text">NULL 的陷阱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXISTS-谓词"><span class="nav-number">3.</span> <span class="nav-text">EXISTS 谓词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提高性能"><span class="nav-number">4.</span> <span class="nav-text">提高性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#避免排序"><span class="nav-number">4.1.</span> <span class="nav-text">避免排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WHERE与HAVING"><span class="nav-number">4.2.</span> <span class="nav-text">WHERE与HAVING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确使用索引"><span class="nav-number">4.3.</span> <span class="nav-text">正确使用索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用IN"><span class="nav-number">4.4.</span> <span class="nav-text">使用IN</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -762,6 +811,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
 
   
 
@@ -808,6 +861,30 @@
       </style>
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'Huangstomach',
+            repo: 'HuangStomach.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0a01aaf0ac592699ecd25205ba00f5a2453beb71',
+            
+                client_id: '7b4036fb022093bb8434'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
