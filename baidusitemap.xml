@@ -5,14 +5,21 @@
     
   <url>
     <loc>https://huangstomach.github.io/2018/06/10/React%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2018-06-10T05:21:23.000Z</lastmod>
+    <lastmod>2018-06-10T07:03:29.000Z</lastmod>
     <data>
         <display>
         <title>React学习笔记</title>
         <pubTime>2018-06-10T05:21:23.000Z</pubTime>
         
+        <tag>React</tag>
+         
+        <tag>JavaScript</tag>
+         
          
            
+             
+              <breadCrumb title="JavaScript" url="https://huangstomach.github.io/categories/JavaScript/"/>
+          
         </display>
     </data>
     </url>
