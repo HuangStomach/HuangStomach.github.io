@@ -309,6 +309,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/07/09/静态文件的上传与处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuangStomach">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄济芃的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/09/静态文件的上传与处理/" itemprop="url">
+                  静态文件的上传与处理
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-09 23:30:12 / 修改时间：23:57:36" itemprop="dateCreated datePublished" datetime="2018-07-09T23:30:12+08:00">2018-07-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>在日常的后端开发中， 不可避免的就是要处理各种文件上传的需要， 随之而来的就是各种下载的需求， 我遇到的大部分开发者都会考虑到在上传的时候做简单的文件校验（有的也没有做）， 然而在文件下载的问题上， 则采用依赖于web服务器的静态文件传输， 经常造成很多的麻烦。</p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>大部分开发者实际上在上传的时候都会对文件进行校验， 并且为了安全性考虑甚至会将文件更换名称。但是更换名称后简单的依赖于web服务器进行下载则会让用户拥有一种我的文件被篡改过的感觉（文件名发生了变化）。</p>
+<p>依赖于web服务器的文件上传，则可以认为是相对依赖于浏览器的url的一种操作，一旦我们将web应用部署在二级目录下，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://origin/path/</span><br></pre></td></tr></table></figure>
+<p>则很容易出现存储问题，比如我们存储的目录很可能因为这个原因需要多前台一层<code>path</code>目录</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>下载遇到的问题同理，最经常遇到的则是静态文件仅仅通过web服务器来做下载，不方便做权限管理，并且容易发生盗用资源的现象，其他的web应用用着你的资源，但是却耗费着你的带宽。</p>
+<p>另一个则和上传的问题一样，下载的时候也避免不了遇到二级目录的问题，这时候web服务器很容易就带着二级目录去做寻找。</p>
+<p>并且在资源进行删除的时候，其相关的静态文件如果没有进行处理也不好做清理，容易造成垃圾文件堆叠。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>我个人在这方面也是有吃过很多的亏，上面的问题全部都碰到过，最后决定使用各种编程语言中读取文件的api来进行解决:</p>
+<ul>
+<li>文件名更换</li>
+<li>二级目录的问题</li>
+<li>权限</li>
+<li>下载</li>
+</ul>
+<p>其中文件名更换非常的简单，我习惯于在文件进行存储时，对其旧的文件名进行持久化存储，以PHP为例:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// DATA_DIR 为web应用根目录的相对路径常量</span></span><br><span class="line"></span><br><span class="line">$uniqid = uniqid();</span><br><span class="line">$path = DATA_DIR . <span class="string">"/attached/&#123;$uniqid&#125;"</span>;</span><br><span class="line">    </span><br><span class="line">$ext = pathinfo($file[<span class="string">'name'</span>], PATHINFO_EXTENSION);</span><br><span class="line">$name = date(<span class="string">"YmdHis"</span>) . <span class="string">'_'</span> . rand(<span class="number">10000</span>, <span class="number">99999</span>) . <span class="string">'.'</span> . $ext;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> (is_dir($path) &amp;&amp; is_uploaded_file($file[<span class="string">'tmp_name'</span>])</span><br><span class="line">&amp;&amp; move_uploaded_file($file[<span class="string">'tmp_name'</span>], <span class="string">"&#123;$path&#125;/&#123;$name&#125;"</span>)) &#123;</span><br><span class="line">    $old = $file[<span class="string">'name'</span>];</span><br><span class="line">    $dir = $path;</span><br><span class="line">    $path = <span class="string">"&#123;$path&#125;/&#123;$name&#125;"</span>;</span><br><span class="line">    $mime = $file[<span class="string">'type'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以获得文件相关的四个变量，其中<code>$old</code>则为我们解决了文件名更换的问题，我们会将用户文件的文件名进行存储，而在我们本地则使用了<code>$name</code>来重命名保证安全文件</p>
+<p>同时，二级目录问题也得到了解决，这里使用的是我们自定义的目录<code>$path</code>，不会受到部署的影响。</p>
+<p>在下载的时候，我们也可以依赖于编程语言提供的api：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// APP_PATH 为web应用根目录的绝对路径常量</span></span><br><span class="line"></span><br><span class="line">$article; <span class="comment">// 假设我们的数据库映射对象是一篇文章</span></span><br><span class="line"><span class="keyword">if</span> (!$article-&gt;id) <span class="keyword">$this</span>-&gt;redirect(<span class="string">'error/404'</span>);</span><br><span class="line">$fullpath = APP_PATH . <span class="string">'/'</span> . $article-&gt;path;</span><br><span class="line">    </span><br><span class="line">header(<span class="string">"Content-Type: &#123;$article-&gt;mime&#125;"</span>);</span><br><span class="line">header(<span class="string">'Accept-Ranges: bytes'</span>);</span><br><span class="line">header(<span class="string">'Accept-Length:'</span> . filesize($fullpath));</span><br><span class="line">header(<span class="string">"Content-Disposition: attachment; filename=\"&#123;$article-&gt;old&#125;\""</span>);</span><br><span class="line">ob_clean();</span><br><span class="line"><span class="keyword">echo</span> file_get_contents($fullpath);</span><br><span class="line"><span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure>
+<p>这里由于是编程语言的实现，那么我们依赖于权限的问题也得到了解决，如第5行中代码返回<code>404</code>错误一样，我们也可以进行逻辑判断并返回<code>401</code>错误</p>
+<p>并且同时，这里的下载也会从我们的数据库里面寻找文件，不用再被web服务器的二级目录所困扰，并且如果更加深入一下，额外的代码也可以降低我们的资源被盗用的风险。</p>
+<p>以下是node的http框架<code>koa</code>的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)()</span><br><span class="line"><span class="keyword">const</span> send = <span class="built_in">require</span>(<span class="string">'koa-send'</span>);</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/image'</span>, <span class="keyword">async</span> ctx =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> mongo = <span class="keyword">new</span> Database()</span><br><span class="line">  <span class="keyword">const</span> db = <span class="keyword">await</span> mongo.init()</span><br><span class="line">  <span class="keyword">let</span> platform = <span class="keyword">await</span> db.collection(<span class="string">'platform'</span>).findOne(&#123; <span class="string">"_id"</span>: <span class="string">"10010"</span> &#125;)</span><br><span class="line">  <span class="keyword">if</span> (platform) &#123;</span><br><span class="line">    ctx.attachment(platform.fileName);</span><br><span class="line">    <span class="keyword">await</span> send(ctx, platform.fileName, &#123; <span class="attr">root</span>: <span class="string">`<span class="subst">$&#123;__dirname&#125;</span>/../<span class="subst">$&#123;platform.filePath&#125;</span>`</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    ctx.body = &#123;</span><br><span class="line">      data: &#123;&#125;,</span><br><span class="line">      code: <span class="number">400</span>,</span><br><span class="line">      message: <span class="string">'获取失败'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  db.close()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>也很简单方便</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/06/10/React学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -355,12 +545,24 @@
                 
               
 
-              <time title="创建时间：2018-06-10 13:21:23 / 修改时间：15:08:35" itemprop="dateCreated datePublished" datetime="2018-06-10T13:21:23+08:00">2018-06-10</time>
+              <time title="创建时间：2018-06-10 13:21:23" itemprop="dateCreated datePublished" datetime="2018-06-10T13:21:23+08:00">2018-06-10</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-07-09 23:36:37" itemprop="dateModified" datetime="2018-07-09T23:36:37+08:00">2018-07-09</time>
               
             
           </span>
@@ -417,41 +619,41 @@
 <p>当我们安装好之后，就会拥有一个<code>create-react-app</code>对应模板的react应用</p>
 <p>结构如下:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── README.md</span><br><span class="line">├── src</span><br><span class="line">└── yarn.lock</span><br></pre></td></tr></table></figure>
-<p>其中要注意的一点是，我们之后编写的代码不会直接被浏览器所识别,我们应尽量把所有需要<code>react-loader</code>为我们做转换的代码放置在<code>src</code>目录下</p>
+<p>其中要注意的一点是，我们之后编写的代码不会直接被浏览器所识别，我们应尽量把所有需要<code>react-loader</code>为我们做转换的代码放置在<code>src</code>目录下</p>
 <p><code>src</code>目录结构:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── App.css</span><br><span class="line">├── App.js</span><br><span class="line">├── App.test.js</span><br><span class="line">├── index.css</span><br><span class="line">├── index.js</span><br><span class="line">├── logo.svg</span><br><span class="line">└── registerServiceWorker.js</span><br></pre></td></tr></table></figure>
 <p>这个目录中会有很多的js文件和css文件</p>
 <p><code>public</code>目录结构:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">├── favicon.ico</span><br><span class="line">├── index.html</span><br><span class="line">└── manifest.json</span><br></pre></td></tr></table></figure>
-<p>我们可以看到<code>public</code>目录结构更加像我们所熟悉的静态<code>web</code>应用的样子,我们访问的也是响应的<code>index.html</code>:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, shrink-to-fit=no"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"theme-color"</span> <span class="attr">content</span>=<span class="string">"#000000"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>React App<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">      You need to enable JavaScript to run this app.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我这里把注释删除掉了一些, 实际上我们编写的代码会被替换到<code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</code>中, 我们可以在<code>src</code>目录下的<code>index.js</code>看到:</p>
+<p>我们可以看到<code>public</code>目录结构更加像我们所熟悉的静态<code>web</code>应用的样子，我们访问的也是响应的<code>index.html</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width，initial-scale=1，shrink-to-fit=no"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"theme-color"</span> <span class="attr">content</span>=<span class="string">"#000000"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>React App<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">      You need to enable JavaScript to run this app.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我这里把注释删除掉了一些，实际上我们编写的代码会被替换到<code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</code>中，我们可以在<code>src</code>目录下的<code>index.js</code>看到:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> registerServiceWorker <span class="keyword">from</span> <span class="string">'./registerServiceWorker'</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span>, document.getElementById('root'));</span></span><br><span class="line"><span class="xml">registerServiceWorker();</span></span><br></pre></td></tr></table></figure>
-<p><code>ReactDOM</code>帮我们将<code>App.js</code>文件内的内容,渲染到了刚才所说的<code>index.html</code>中</p>
+<p><code>ReactDOM</code>帮我们将<code>App.js</code>文件内的内容，渲染到了刚才所说的<code>index.html</code>中</p>
 <p>我们继续打开生成的<code>App.js</code>中我们可以看到:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.svg'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./App.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span>&gt;</span><br><span class="line">        &lt;header className=<span class="string">"App-header"</span>&gt;</span><br><span class="line">          &lt;img src=&#123;logo&#125; className=<span class="string">"App-logo"</span> alt=<span class="string">"logo"</span> /&gt;</span><br><span class="line">          &lt;h1 className=<span class="string">"App-title"</span>&gt;Welcome to React&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>header&gt;</span><br><span class="line">        &lt;p className=<span class="string">"App-intro"</span>&gt;</span><br><span class="line">          To get started, edit &lt;code&gt;src/App.js&lt;<span class="regexp">/code&gt; and save to reload.</span></span><br><span class="line"><span class="regexp">        &lt;/</span>p&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
 <p>这样的文件结构或者这样的用法被我们习惯的称为<strong>组件</strong></p>
-<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>虽然对于基础web或后端开发者来说可能有些不熟悉,但实际上概念是想通的。不得不说借助于<a href="https://babeljs.io/learn-es2015/" target="_blank" rel="noopener">ES6</a>规范，使得js更加亲切了一些</p>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>虽然对于基础web或后端开发者来说可能有些不熟悉，但实际上概念是想通的。不得不说借助于<a href="https://babeljs.io/learn-es2015/" target="_blank" rel="noopener">ES6</a>规范，使得js更加亲切了一些</p>
 <p>以我写的最多的php为例:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.svg'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./App.css'</span>;</span><br></pre></td></tr></table></figure>
-<p>实际上我们可以简单的理解为<code>require</code>引入资源, 只不过react中不仅仅可以引入<code>.js</code>或者<code>.jsx</code>文件，也可以引入其他的静态资源。</p>
+<p>实际上我们可以简单的理解为<code>require</code>引入资源，只不过react中不仅仅可以引入<code>.js</code>或者<code>.jsx</code>文件，也可以引入其他的静态资源。</p>
 <p>下半部分可能会比较熟悉:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span>&gt;</span><br><span class="line">        &lt;header className=<span class="string">"App-header"</span>&gt;</span><br><span class="line">          &lt;img src=&#123;logo&#125; className=<span class="string">"App-logo"</span> alt=<span class="string">"logo"</span> /&gt;</span><br><span class="line">          &lt;h1 className=<span class="string">"App-title"</span>&gt;Welcome to React&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>header&gt;</span><br><span class="line">        &lt;p className=<span class="string">"App-intro"</span>&gt;</span><br><span class="line">          To get started, edit &lt;code&gt;src/App.js&lt;<span class="regexp">/code&gt; and save to reload.</span></span><br><span class="line"><span class="regexp">        &lt;/</span>p&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
 <p>典型的class的设计，诸多高级语言都会拥有的特性，使得面向对象思想也更加的清晰。</p>
-<p>在这个文件中我们甚至可以看到继承关键字<code>extends</code>，不太相同的是我们实现的只有<code>render()</code>方法，我们稍后再说，实际上和诸多语言的class一样，组件本身实际上也是提供构造函数的, 这里因为没有具体使用所以官方为我们省略掉了，我们可以自己添加上:</p>
+<p>在这个文件中我们甚至可以看到继承关键字<code>extends</code>，不太相同的是我们实现的只有<code>render()</code>方法，我们稍后再说，实际上和诸多语言的class一样，组件本身实际上也是提供构造函数的，这里因为没有具体使用所以官方为我们省略掉了，我们可以自己添加上:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span>&gt;</span><br><span class="line">        &lt;header className=<span class="string">"App-header"</span>&gt;</span><br><span class="line">          &lt;img src=&#123;logo&#125; className=<span class="string">"App-logo"</span> alt=<span class="string">"logo"</span> /&gt;</span><br><span class="line">          &lt;h1 className=<span class="string">"App-title"</span>&gt;Welcome to React&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>header&gt;</span><br><span class="line">        &lt;p className=<span class="string">"App-intro"</span>&gt;</span><br><span class="line">          To get started, edit &lt;code&gt;src/App.js&lt;<span class="regexp">/code&gt; and save to reload.</span></span><br><span class="line"><span class="regexp">        &lt;/</span>p&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
 <p>这样我们就拥有了熟悉的构造函数，(其中的<code>props</code>参数之后再说)，实际上我个人觉得，每个组件我们都可以当做是一个类来理解。</p>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>那么说到对象，不可或缺的就是内部的属性。react中提供了组件内部属性操作的相关api, 譬如:</p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>那么说到对象，不可或缺的就是内部的属性。react中提供了组件内部属性操作的相关api，譬如:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="number">1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
-<p>这里我先将<code>render()</code>内的多余代码删除了，可以看到我们在构造函数中为<code>this</code>赋予了新的属性<code>state</code>, 官方文档中的解释就是:</p>
+<p>这里我先将<code>render()</code>内的多余代码删除了，可以看到我们在构造函数中为<code>this</code>赋予了新的属性<code>state</code>，官方文档中的解释就是:</p>
 <blockquote>
-<p>State is similar to props, but it is private and fully controlled by the component</p>
+<p>State is similar to props，but it is private and fully controlled by the component</p>
 </blockquote>
 <p><code>props</code>后面再谈，可以看到<code>state</code>实际上是被识别为<code>private</code>的，我们可以理解为对象内的私有变量/属性，同时使用起来也比较简单:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="number">1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">value</span>: <span class="string">'X'</span>&#125;)&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.state.value&#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
-<p>我们可以看到，我们可以世界在html中使用<code>this.state.value</code>进行私有变量的使用, 很像php中的动态脚本，不过我们想要修改私有属性的话不能直接去进行赋值，而是需要调用<code>this.setState()</code>。</p>
-<p>这种直接在html中写js代码的格式被称为<strong>jsx</strong>,我一般喜好将所有的使用jsx语法的文件后缀修改为<code>.jsx</code></p>
-<p>jsx语法中有许多要注意的地方, 如上述代码中无法直接使用html的<code>class</code>属性, 而是要使用<code>className</code>, 同时注册元素方法的时候也较为不一样，这里为了简单的将方法内的<code>this</code>指向当前组件我们编写了一个箭头函数。</p>
+<p>我们可以看到，我们可以世界在html中使用<code>this.state.value</code>进行私有变量的使用，很像php中的动态脚本，不过我们想要修改私有属性的话不能直接去进行赋值，而是需要调用<code>this.setState()</code>。</p>
+<p>这种直接在html中写js代码的格式被称为<strong>jsx</strong>，我一般喜好将所有的使用jsx语法的文件后缀修改为<code>.jsx</code></p>
+<p>jsx语法中有许多要注意的地方，如上述代码中无法直接使用html的<code>class</code>属性，而是要使用<code>className</code>，同时注册元素方法的时候也较为不一样，这里为了简单的将方法内的<code>this</code>指向当前组件我们编写了一个箭头函数。</p>
 <p>当有内部私有变量的时候，我们就会想象到另一个概念公共变量/属性，实际上就是<code>props</code>了</p>
 <p>类的公共属性我们可以在实例化好类之后直接进行赋值，回到我们的<code>index.js</code>文件:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> registerServiceWorker <span class="keyword">from</span> <span class="string">'./registerServiceWorker'</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span>, document.getElementById('root'));</span></span><br><span class="line"><span class="xml">registerServiceWorker();</span></span><br></pre></td></tr></table></figure>
@@ -461,7 +663,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="number">1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">value</span>: <span class="string">'X'</span>&#125;)&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.state.value&#125;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">          &#123;<span class="keyword">this</span>.props.name&#125;</span><br><span class="line">        &lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
 <p>我们也可以像普通的使用类一样的扩展我们的组件:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="number">1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  anotherOne() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'another one'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  changeValue(val = <span class="string">'x'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">value</span>: val&#125;);</span><br><span class="line">    <span class="keyword">this</span>.anotherOne();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.changeValue()&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.props.name&#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
-<p>实际上无论是vue还是react，其中的设计思想都是平时比较常用的，理解了他们想通的地方，学习使用起来就会更为容易。</p>
+<p>实际上无论是vue还是react，其中的设计思想都是平时比较常用的，理解了他们相通的地方，学习使用起来就会更为容易。</p>
 
           
         
@@ -515,7 +717,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/05/29/SQL学习笔记(一)/">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/05/29/SQL学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HuangStomach">
@@ -534,8 +736,8 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/29/SQL学习笔记(一)/" itemprop="url">
-                  sql学习笔记(一)
+                <a class="post-title-link" href="/2018/05/29/SQL学习笔记/" itemprop="url">
+                  sql学习笔记
                 </a>
               
             
@@ -561,12 +763,24 @@
                 
               
 
-              <time title="创建时间：2018-05-29 21:09:38 / 修改时间：23:20:59" itemprop="dateCreated datePublished" datetime="2018-05-29T21:09:38+08:00">2018-05-29</time>
+              <time title="创建时间：2018-05-29 21:09:38" itemprop="dateCreated datePublished" datetime="2018-05-29T21:09:38+08:00">2018-05-29</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-07-09 23:37:06" itemprop="dateModified" datetime="2018-07-09T23:37:06+08:00">2018-07-09</time>
               
             
           </span>
@@ -620,66 +834,66 @@
         
           
             <blockquote>
-<p>在大多数的sql学习中,众多学习者(包括我),可能非常容易在学习中浅尝辄止,满足于基础的增删改查,进而往往忽略了sql为我们提供的更多高效的特性,从而无论在开发还是使用上都会造成不便</p>
+<p>在大多数的sql学习中，众多学习者(包括我)，可能非常容易在学习中浅尝辄止，满足于基础的增删改查，进而往往忽略了sql为我们提供的更多高效的特性，从而无论在开发还是使用上都会造成不便</p>
 </blockquote>
-<h2 id="HAVING-子句"><a href="#HAVING-子句" class="headerlink" title="HAVING 子句"></a>HAVING 子句</h2><p>在日常使用中,使用较多的一种数据处理形式就是数据聚合,数据聚合令人第一时间想到的就是<code>GROUP BY</code>语句,具体使用可能如下:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">count</span>, equipment_id </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> equipment_id</span><br></pre></td></tr></table></figure>
-<p>这种简单的使用可以非常简单的帮我们归纳数据,获取例如获取每种数据在特定情形下出现过多少次</p>
+<h2 id="HAVING-子句"><a href="#HAVING-子句" class="headerlink" title="HAVING 子句"></a>HAVING 子句</h2><p>在日常使用中，使用较多的一种数据处理形式就是数据聚合，数据聚合令人第一时间想到的就是<code>GROUP BY</code>语句，具体使用可能如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">count</span>，equipment_id </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> equipment_id</span><br></pre></td></tr></table></figure>
+<p>这种简单的使用可以非常简单的帮我们归纳数据，获取例如获取每种数据在特定情形下出现过多少次</p>
 <p>如果想要获取到出现次数大于1的数据集合呢?我反正是这样写过:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">count</span>, equipment_id </span><br><span class="line">    <span class="keyword">FROM</span> eq_record</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> equipment_id</span><br><span class="line">) <span class="keyword">AS</span> T1</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">count</span> &gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>虽然可以得到想要的结果,不过效率非常的低,括号中的语句形成了一个子查询,我们还要再对子查询进行条件查询,效率很低</p>
-<p>但是实际上,我们可以使用<code>HAVING</code>子句:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">count</span>, equipment_id </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> equipment_id</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">count</span> &gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>这样写不仅仅优雅,并且还去掉了子查询,增加了查询的效率</p>
-<h2 id="NULL-的陷阱"><a href="#NULL-的陷阱" class="headerlink" title="NULL 的陷阱"></a>NULL 的陷阱</h2><p>很多的编程语言中都会包含布尔类型(<code>bool</code> 或者是 <code>boolean</code>),sql中也存在着相似的概念然而,sql中还包含着第三个值<code>unknown</code>,这被称为三值逻辑</p>
-<p>当我们进行如下查询的时候,会返回给我们失败的结果:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">count</span>，equipment_id </span><br><span class="line">    <span class="keyword">FROM</span> eq_record</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> equipment_id</span><br><span class="line">) <span class="keyword">AS</span> T1</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">count</span> &gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>虽然可以得到想要的结果，不过效率非常的低，括号中的语句形成了一个子查询，我们还要再对子查询进行条件查询，效率很低</p>
+<p>但是实际上，我们可以使用<code>HAVING</code>子句:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">count</span>，equipment_id </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> equipment_id</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">count</span> &gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>这样写不仅仅优雅，并且还去掉了子查询，增加了查询的效率</p>
+<h2 id="NULL-的陷阱"><a href="#NULL-的陷阱" class="headerlink" title="NULL 的陷阱"></a>NULL 的陷阱</h2><p>很多的编程语言中都会包含布尔类型(<code>bool</code> 或者是 <code>boolean</code>)，sql中也存在着相似的概念然而，sql中还包含着第三个值<code>unknown</code>，这被称为三值逻辑</p>
+<p>当我们进行如下查询的时候，会返回给我们失败的结果:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">WHERE</span> dtend = <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<p>这必然失败,但是为什么呢?大家肯定知道正确的写法:</p>
+<p>这必然失败，但是为什么呢?大家肯定知道正确的写法:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">WHERE</span> dtend <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<p>之所以上面的语句无法正确执行,是因为<code>WHERE</code>子句实际上只会将条件中返回结果为<code>true</code>的行加入查询结果,但是对<code>NULL</code>的比较,均会返回<code>unknown</code></p>
-<p>举个例子,如果我们想获取全部的使用记录(虽然我们肯定不会这么写):</p>
+<p>之所以上面的语句无法正确执行，是因为<code>WHERE</code>子句实际上只会将条件中返回结果为<code>true</code>的行加入查询结果，但是对<code>NULL</code>的比较，均会返回<code>unknown</code></p>
+<p>举个例子，如果我们想获取全部的使用记录(虽然我们肯定不会这么写):</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">WHERE</span> dtend &lt;&gt; <span class="number">1514736000</span></span><br><span class="line"><span class="keyword">OR</span> dtend = <span class="number">1514736000</span></span><br></pre></td></tr></table></figure>
-<p>实际上<code>dtend</code>为<code>NULL</code>的行是无法返回的,任何查询执行到<code>NULL</code>行的时候都会做类似如下转换:</p>
+<p>实际上<code>dtend</code>为<code>NULL</code>的行是无法返回的，任何查询执行到<code>NULL</code>行的时候都会做类似如下转换:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">unknown</span></span><br><span class="line"><span class="keyword">OR</span> <span class="keyword">unknown</span></span><br></pre></td></tr></table></figure>
 <p>所以我们需要加一个条件</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">WHERE</span> dtend &lt;&gt; <span class="number">1514736000</span></span><br><span class="line"><span class="keyword">OR</span> dtend = <span class="number">1514736000</span></span><br><span class="line"><span class="keyword">OR</span> dtend <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<p>甚至我们在<code>CASE</code>表达式里也需要改变,如下的语句是无法执行的:</p>
+<p>甚至我们在<code>CASE</code>表达式里也需要改变，如下的语句是无法执行的:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CASE dtend</span><br><span class="line">    WHEN 1      THEN 'ok'</span><br><span class="line">    WHEN NULL   THEN 'no'</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
 <p>改变为:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CASE WHEN dtend = 1 THEN 'ok'</span><br><span class="line">     WHEN dtend IS NULL THEN 'no'</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
-<p>经过这么多的例子,其实可以这样假定:<br><strong>在允许的情况下,应当尽量避免<code>NULL</code>的使用</strong></p>
-<h2 id="EXISTS-谓词"><a href="#EXISTS-谓词" class="headerlink" title="EXISTS 谓词"></a>EXISTS 谓词</h2><p>无论在哪些地方,都能听到类似的结论:</p>
+<p>经过这么多的例子，其实可以这样假定:<br><strong>在允许的情况下，应当尽量避免<code>NULL</code>的使用</strong></p>
+<h2 id="EXISTS-谓词"><a href="#EXISTS-谓词" class="headerlink" title="EXISTS 谓词"></a>EXISTS 谓词</h2><p>无论在哪些地方，都能听到类似的结论:</p>
 <blockquote>
 <p>能用<code>EXISTS</code>就不要用<code>IN</code></p>
 </blockquote>
 <p>的确，比如:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_reserv</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">IN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> reserv_id</span><br><span class="line">    <span class="keyword">FROM</span> eq_record</span><br><span class="line">    <span class="keyword">WHERE</span> dtend = <span class="number">0</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>这样的语句实际上执行效率很慢,<code>IN</code>会产生一个子查询,每个<code>WHERE</code>条件都会去扫描子查询中的所有数据,非常耗费资源</p>
+<p>这样的语句实际上执行效率很慢，<code>IN</code>会产生一个子查询，每个<code>WHERE</code>条件都会去扫描子查询中的所有数据，非常耗费资源</p>
 <p>这里我们可以使用<code>EXISTS</code>谓词:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_reserv <span class="keyword">AS</span> a</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> *</span><br><span class="line">    <span class="keyword">FROM</span> eq_record <span class="keyword">AS</span> b</span><br><span class="line">    <span class="keyword">WHERE</span> a.id = b.reserv_id</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>这样比<code>IN</code>更快，如果我们在关联的列<code>id</code>上建立了索引，那么查询的时候不会查询实际的表，单独查询索引就可以了</p>
-<p>如果使用了<code>EXISTS</code>那么不用像<code>IN</code>一样扫描全表,而是只要有一行满足条件则进行返回,比<code>IN</code>的效率高出很多</p>
-<p><code>EXISTS</code>与<code>IN</code>不太一样,更像是简单的做关联，如果能做出关联则进行结果的返回</p>
+<p>如果使用了<code>EXISTS</code>那么不用像<code>IN</code>一样扫描全表，而是只要有一行满足条件则进行返回，比<code>IN</code>的效率高出很多</p>
+<p><code>EXISTS</code>与<code>IN</code>不太一样，更像是简单的做关联，如果能做出关联则进行结果的返回</p>
 <h2 id="提高性能"><a href="#提高性能" class="headerlink" title="提高性能"></a>提高性能</h2><h3 id="避免排序"><a href="#避免排序" class="headerlink" title="避免排序"></a>避免排序</h3><p>SQL中很大部分的内存消耗实际上都发生在排序中，虽然可能没有并且的使用<code>ORDER BY</code>，但是数据库内部仍然会进行隐式的排序，如使用:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GROUP BY</span><br><span class="line">ORDER BY</span><br><span class="line">SUM() COUNT() AVG() MAX() MIN()</span><br><span class="line">DISTINCT</span><br><span class="line">UNION INTERSECT EXCEPT</span><br></pre></td></tr></table></figure>
-<p>等等，都会触发排序，所以在提高性能的过程中,应当尽量避免使用排序,例如在使用<code>UNION</code>等的过程中,SQL会为了去除重复数据而进行排序，当我们知道不会有数据重复时，其实可以使用<code>UNION ALL</code>来避免排序</p>
-<p><code>EXISTS</code>的工作实际上也可以为我们去除重复数据,某种情况下我们可以使用其来代替<code>DISTINCT</code>从而避免排序</p>
-<p>另外当我们需要使用极值函数(<code>MAX() MIN()</code>)时,使用索引能避免进行排序</p>
-<h3 id="WHERE与HAVING"><a href="#WHERE与HAVING" class="headerlink" title="WHERE与HAVING"></a>WHERE与HAVING</h3><p>当使用了<code>HAVING</code>子句的时候,可能会有这样的困惑,既然<code>HAVING</code>可以为我们提升聚合的效率,是不是应该多使用<code>HAVING</code>?</p>
-<p>实际上并不全是如此,如果条件允许的情况下,能写在<code>WHERE</code>子句中的条件应该尽量写在<code>WHERE</code>子句中,这样在<code>GROUP BY</code>进行聚合排序的时候才会降低排序的负担,从而提高性能,并且很多聚合后的视图是不会保有原本的索引的</p>
-<h3 id="正确使用索引"><a href="#正确使用索引" class="headerlink" title="正确使用索引"></a>正确使用索引</h3><p>众所周知索引是能为我们大大提高查询效率的,但是很多时候我们并没有正确使用索引:</p>
+<p>等等，都会触发排序，所以在提高性能的过程中，应当尽量避免使用排序，例如在使用<code>UNION</code>等的过程中，SQL会为了去除重复数据而进行排序，当我们知道不会有数据重复时，其实可以使用<code>UNION ALL</code>来避免排序</p>
+<p><code>EXISTS</code>的工作实际上也可以为我们去除重复数据，某种情况下我们可以使用其来代替<code>DISTINCT</code>从而避免排序</p>
+<p>另外当我们需要使用极值函数(<code>MAX() MIN()</code>)时，使用索引能避免进行排序</p>
+<h3 id="WHERE与HAVING"><a href="#WHERE与HAVING" class="headerlink" title="WHERE与HAVING"></a>WHERE与HAVING</h3><p>当使用了<code>HAVING</code>子句的时候，可能会有这样的困惑，既然<code>HAVING</code>可以为我们提升聚合的效率，是不是应该多使用<code>HAVING</code>?</p>
+<p>实际上并不全是如此，如果条件允许的情况下，能写在<code>WHERE</code>子句中的条件应该尽量写在<code>WHERE</code>子句中，这样在<code>GROUP BY</code>进行聚合排序的时候才会降低排序的负担，从而提高性能，并且很多聚合后的视图是不会保有原本的索引的</p>
+<h3 id="正确使用索引"><a href="#正确使用索引" class="headerlink" title="正确使用索引"></a>正确使用索引</h3><p>众所周知索引是能为我们大大提高查询效率的，但是很多时候我们并没有正确使用索引:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">WHERE</span> dtend * <span class="number">1.5</span> &lt; <span class="number">1514736000</span></span><br></pre></td></tr></table></figure>
-<p>上这里对索引进行了运算,然而这种转换数据库是不会帮我们做的,所以我们可以这样写:</p>
+<p>上这里对索引进行了运算，然而这种转换数据库是不会帮我们做的，所以我们可以这样写:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_record</span><br><span class="line"><span class="keyword">WHERE</span> dtend &lt; <span class="number">1514736000</span> / <span class="number">1.5</span></span><br></pre></td></tr></table></figure>
-<p>当使用索引的时候,条件表达式左侧应该尽量是原始字段,另外,使用<code>NULL</code>来做判断的时候,也是无法使用索引的</p>
-<p>有些时候我们会用到联合索引,比如<code>(user_id, equipment_id)</code>,这样的时候使用顺序则很重要</p>
+<p>当使用索引的时候，条件表达式左侧应该尽量是原始字段，另外，使用<code>NULL</code>来做判断的时候，也是无法使用索引的</p>
+<p>有些时候我们会用到联合索引，比如<code>(user_id，equipment_id)</code>，这样的时候使用顺序则很重要</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> eq_record <span class="keyword">WHERE</span> user_id = <span class="number">1</span> <span class="keyword">AND</span> equipment_id = <span class="number">1</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> eq_record <span class="keyword">WHERE</span> equipment_id = <span class="number">1</span> <span class="keyword">AND</span> user_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>第二条语句仅仅是颠倒了顺序,就使得数据库无法充分使用索引从而变慢,所以当使用联合索引时应尽量让顺序和定义索引的时候保持一致</p>
+<p>第二条语句仅仅是颠倒了顺序，就使得数据库无法充分使用索引从而变慢，所以当使用联合索引时应尽量让顺序和定义索引的时候保持一致</p>
 <h3 id="使用IN"><a href="#使用IN" class="headerlink" title="使用IN"></a>使用IN</h3><p>有些时候我们迫不得已会使用<code>IN</code>谓词例如:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_sample</span><br><span class="line"><span class="keyword">WHERE</span> sender_id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br><span class="line"><span class="keyword">AND</span> operator_id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<p>我们这里使用了两个子查询(先不考虑是否可以转换使用<code>EXISTS</code>谓词),并且子查询的内容是一样的,如果我们这么执行,则会生成两个完全相同的子查询集合,所以我们可以这样写:</p>
+<p>我们这里使用了两个子查询(先不考虑是否可以转换使用<code>EXISTS</code>谓词)，并且子查询的内容是一样的，如果我们这么执行，则会生成两个完全相同的子查询集合，所以我们可以这样写:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> eq_sample</span><br><span class="line"><span class="keyword">WHERE</span> (sender_id, operator_id)</span><br><span class="line"><span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<p>则会让sql重复使用一个子查询,尽量提高效率</p>
+<p>则会让sql重复使用一个子查询，尽量提高效率</p>
 
           
         
@@ -761,7 +975,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -778,7 +992,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -797,7 +1015,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
