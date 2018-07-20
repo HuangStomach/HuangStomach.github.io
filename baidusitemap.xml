@@ -4,11 +4,33 @@
 
     
   <url>
-    <loc>https://huangstomach.github.io/2018/07/09/%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8E%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2018-07-09T15:57:36.000Z</lastmod>
+    <loc>https://huangstomach.github.io/2018/06/10/React%E4%B8%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc>
+    <lastmod>2018-07-20T11:29:54.000Z</lastmod>
     <data>
         <display>
-        <title>静态文件的上传与处理</title>
+        <title>React与面向对象</title>
+        <pubTime>2018-06-10T05:21:23.000Z</pubTime>
+        
+        <tag>React</tag>
+         
+        <tag>JavaScript</tag>
+         
+         
+           
+             
+              <breadCrumb title="JavaScript" url="https://huangstomach.github.io/categories/JavaScript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://huangstomach.github.io/2018/07/09/%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E4%B8%8E%E4%B8%8A%E4%BC%A0/</loc>
+    <lastmod>2018-07-20T11:29:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>静态文件与上传</title>
         <pubTime>2018-07-09T15:30:12.000Z</pubTime>
         
         <tag>PHP</tag>
@@ -29,11 +51,11 @@
 
     
   <url>
-    <loc>https://huangstomach.github.io/2018/05/29/SQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2018-07-09T15:37:06.000Z</lastmod>
+    <loc>https://huangstomach.github.io/2018/05/29/SQL%E4%B8%8E%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2018-07-20T11:29:31.000Z</lastmod>
     <data>
         <display>
-        <title>sql学习笔记</title>
+        <title>SQL与优化</title>
         <pubTime>2018-05-29T13:09:38.000Z</pubTime>
         
         <tag>SQL</tag>
@@ -42,28 +64,6 @@
            
              
               <breadCrumb title="SQL" url="https://huangstomach.github.io/categories/SQL/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://huangstomach.github.io/2018/06/10/React%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2018-07-09T15:36:37.000Z</lastmod>
-    <data>
-        <display>
-        <title>React学习笔记</title>
-        <pubTime>2018-06-10T05:21:23.000Z</pubTime>
-        
-        <tag>React</tag>
-         
-        <tag>JavaScript</tag>
-         
-         
-           
-             
-              <breadCrumb title="JavaScript" url="https://huangstomach.github.io/categories/JavaScript/"/>
           
         </display>
     </data>
