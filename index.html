@@ -309,6 +309,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/07/21/侧边栏与屏幕适应/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuangStomach">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄济芃的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/21/侧边栏与屏幕适应/" itemprop="url">
+                  侧边栏与高度适应
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-21 10:11:03 / 修改时间：10:44:35" itemprop="dateCreated datePublished" datetime="2018-07-21T10:11:03+08:00">2018-07-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>在目前的大部分设计中，管理系统仍然不可忽视的一项重要功能就是侧边功能栏，然而在侧边功能栏上的开发，也绕过了许多的弯路</p>
+</blockquote>
+<h2 id="js侧边栏"><a href="#js侧边栏" class="headerlink" title="js侧边栏"></a>js侧边栏</h2><p>在我新手时期，也写过许多的侧边栏，侧边栏的要求很简单，和屏幕高度保持一致，并且功能项能在内部进行滚动，当时的我也是煞费苦心，为了能够准确地自适应，不得不用js去进行实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">window</span>).resize(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sidebar = $(<span class="string">'#dashboard-sidebar'</span>);</span><br><span class="line">    sidebar.css(<span class="string">'height'</span>, <span class="string">'auto'</span>);</span><br><span class="line">    <span class="keyword">let</span> h = <span class="built_in">Math</span>.max(sidebar.outerHeight(), $(<span class="built_in">window</span>).height() - $(<span class="string">'#header'</span>).height());</span><br><span class="line">    sidebar.css(<span class="string">'height'</span>, h);</span><br><span class="line">&#125;).resize();</span><br></pre></td></tr></table></figure>
+<p>可以说是非常的愚蠢了，每次都要在窗口变动的时候重新计算，会有视觉上的延误。</p>
+<p>并且在首屏加载完成之前，还要忍受一个不正常的侧边栏等待渲染。</p>
+<h2 id="绝对定位侧边栏"><a href="#绝对定位侧边栏" class="headerlink" title="绝对定位侧边栏"></a>绝对定位侧边栏</h2><p>在后续的开发中，觉得js实现侧边栏实在是太过愚蠢，不停地寻找解决方案的时候，发现实际上绝对定位是可以为我们解决问题的。</p>
+<p>给侧边栏定好宽度，然后进行绝对定位，css会自动帮我们将高度和屏幕自适应，在很长一段时间内为我解决了问题。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">position</span>: <span class="selector-tag">fixed</span>;</span><br><span class="line"><span class="selector-tag">top</span>: 0;</span><br><span class="line"><span class="selector-tag">bottom</span>: 0;</span><br><span class="line"><span class="selector-tag">left</span>: 0;</span><br><span class="line"><span class="selector-tag">background-color</span>: <span class="selector-id">#444F61</span>;</span><br><span class="line"><span class="selector-tag">overflow-y</span>: <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
+<p>很简单就完成了一个自适应的侧边栏，唯一的缺点就是因为使用了绝对定位，其他的元素得注意是否要纷纷绕道。</p>
+<h2 id="现在的侧边栏"><a href="#现在的侧边栏" class="headerlink" title="现在的侧边栏"></a>现在的侧边栏</h2><p>后来由于绝对定位也是为我带来了一定程度上的困扰，一旦我修改侧边栏，其他元素也要纷纷跟着移动，每次修改起来也是令人很头疼，所以又开始研究其他的解决方案。</p>
+<p>后来在使用<code>bootstrap</code>的时候，也沿用了它所使用的一个css属性值 <code>vh</code>。</p>
+<p>很担心兼容性的我去MDN上进行了一下兼容性的查询，IE9就已经支持了。另外如果侧边栏之上还有顶部导航栏，仍然可以使用计算属性：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">height</span>: 100<span class="selector-tag">vh</span>;</span><br><span class="line"><span class="selector-tag">height</span>: <span class="selector-tag">calc</span>(100<span class="selector-tag">vh</span> <span class="selector-tag">-</span> 60<span class="selector-tag">px</span>);</span><br></pre></td></tr></table></figure>
+<p>除了<code>vh</code>以外，也有很多类似的属性值如：<code>vw</code>、 <code>vmin</code> 和 <code>vmax</code>，都是进行自适应开发不错的选择。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/07/09/静态文件与上传/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -372,7 +545,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-07-20 19:29:51" itemprop="dateModified" datetime="2018-07-20T19:29:51+08:00">2018-07-20</time>
+                <time title="修改时间：2018-07-20 19:34:10" itemprop="dateModified" datetime="2018-07-20T19:34:10+08:00">2018-07-20</time>
               
             
           </span>
@@ -390,13 +563,6 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
 
                 
                 
@@ -989,7 +1155,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1033,7 +1199,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
