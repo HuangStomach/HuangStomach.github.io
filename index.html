@@ -309,6 +309,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/08/25/按需加载与代码分割/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuangStomach">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄济芃的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/25/按需加载与代码分割/" itemprop="url">
+                  按需加载与代码分割
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-25 13:31:19 / 修改时间：14:13:02" itemprop="dateCreated datePublished" datetime="2018-08-25T13:31:19+08:00">2018-08-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>之前在社交平台上随手给一个朋友回答了个小问题，发现按需加载和代码分割的概念非常容易混淆，也无法对前端应用的性能进行实质的提升</p>
+</blockquote>
+<h2 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h2><p>按需加载其实说起来非常高大上但是其实很简单，<a href="http://element.eleme.io/#/zh-CN/component/quickstart" target="_blank" rel="noopener">element官网</a>上就有简单的说明</p>
+<p>可以看到其使用了一个很简单的特性，ES6的import特性，可以简单的为我们引入需要的组件等:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Button, Select &#125; <span class="keyword">from</span> <span class="string">'element-ui'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span>;</span><br><span class="line"></span><br><span class="line">Vue.component(Button.name, Button);</span><br><span class="line">Vue.component(Select.name, Select);</span><br><span class="line"><span class="comment">/* 或写为</span></span><br><span class="line"><span class="comment"> * Vue.use(Button)</span></span><br><span class="line"><span class="comment"> * Vue.use(Select)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，其中在引入<code>element-ui</code>的时候，仅仅引入了我们所需要的两个组件。</p>
+<p><code>element-ui</code>为我们提供了许多丰富的组件，但是可能在日常开发中我们只能用到一小部分，那么这个特性就会很好的帮助我们进行第三方组件引入的最小化了。</p>
+<p>不过我遇到的这位朋友使用的方法让我意想不到，给我描述的情况是，他的确只引入了需要的组件，但是整个前端应用还是非常的庞大，导致首屏加载仍然非常缓慢。</p>
+<p>仔细询问发现，他只是单纯使用了按需加载的属性，将所有需要用到的组件都像实例那样进行了引入。实际上，如果仅仅单纯的地使用这个特性，在使用了80%以上组件的情况下，结果和整体引入ui库也并无区别。</p>
+<h2 id="代码分割"><a href="#代码分割" class="headerlink" title="代码分割"></a>代码分割</h2><p>在我看来，按需加载实际上和代码分割的辅助功能是相辅相成的，在没有代码分割之下，所有的按需加载实际上仍然会将所有的第三方库全部压缩到一个工程文件中，导致该文件下载缓慢，运行缓慢。</p>
+<p>实际上这一概念已经存在很久了无论是:</p>
+<p><a href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html" target="_blank" rel="noopener">vue-router 路由懒加载</a></p>
+<p>亦或是</p>
+<p><a href="https://reactjs.org/docs/code-splitting.html" target="_blank" rel="noopener">react code-splitting</a></p>
+<p>中都有提到，当然他们主要也是借用的<code>webpack</code>的一项特性<a href="https://webpack.js.org/guides/code-splitting/" target="_blank" rel="noopener">code-splitting</a></p>
+<p>我们在这篇介绍中可以看到，webpack为我们提供了一种动态<code>import</code>的功能：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "lodash" */</span> <span class="string">'lodash'</span>);</span><br></pre></td></tr></table></figure>
+<p>就像文章中所说的，这种写法会帮我们将引入的文件单独进行一个文件的分割打包，这样我们庞大的应用就会被我们精心地拆成一个个单独的js文件，互不影响，异步加载，极大地节省了我们的首屏加载时间。</p>
+<p>这里和<strong>按需加载</strong>是相辅相成的，我们可以把我们需要使用的第三方组件分布在我们的各个小组件中，并让这些组件进行代码分割，从而达到最大化优化效果的目的。</p>
+<p>同样我们可以看到这个语法中有一行注释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/* webpackChunkName: &quot;lodash&quot; */</span><br></pre></td></tr></table></figure>
+<p><code>webpack</code>会根据我们注释中所写的<code>ChunkName</code>也就是我们为这个包起得名字，将相同名字的包打入到一个文件中，这样哪怕我们希望打入一个包的组件之间没有继承关系，也能在这里进行处理。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>代码分割和按需加载已经很大程度上为我们进行了前端优化了，我们还需要优化什么呢？</p>
+<p>我的一些同事在代码分割上做的不是很理智，这里我们先介绍一个<code>webpack</code>推荐的分析辅助插件<code>webpack-bundle-analyzer</code>。</p>
+<p>个人觉得这是一款非常好用的插件，只要进行简单的配置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> BundleAnalyzerPlugin(&#123;</span><br><span class="line">      analyzerMode: <span class="string">'server'</span>,</span><br><span class="line">      analyzerHost: <span class="string">'0.0.0.0'</span>,</span><br><span class="line">      analyzerPort: <span class="number">8181</span>,</span><br><span class="line">      reportFilename: <span class="string">'report.html'</span>,</span><br><span class="line">      defaultSizes: <span class="string">'parsed'</span>,</span><br><span class="line">      openAnalyzer: <span class="literal">true</span>,</span><br><span class="line">      generateStatsFile: <span class="literal">false</span>,</span><br><span class="line">      statsFilename: <span class="string">'stats.json'</span>,</span><br><span class="line">      statsOptions: <span class="literal">null</span>,</span><br><span class="line">      logLevel: <span class="string">'info'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置项我这边不再赘述了，运行<code>NODE_ENV=production ANALYZ=true npm_config_report=true npm run build</code>后则会为我们生成一个直观的build报告：</p>
+<img src="/2018/08/25/按需加载与代码分割/2018/08/25/按需加载与代码分割/1535175896358.jpg" title="分析结果">
+<p>我们可以看到，每一个文件都被分割成了和自身大小比例相等的块，抛去这些最大的引入，我们可以看到右下角有一些几乎看不清的小引入，这些都是同事开发的功能组件，非常的小。</p>
+<p>根据这个分析，我们可以得到目前占用体积最大的组件是哪几个，如果过多的占用了我们的加载时间，则应该进行继续分割优化。</p>
+<p>但是如果我们的组件非常的小，如右下方的组件，不足1KB，个人觉得就不用进行拆分了，和其父组件在一起就可以，否则这种细碎组件拆分过多，加载性能上没有太多提升反而加大了http请求的压力。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/07/28/栈与尾递归优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1275,423 +1464,6 @@
 <p>当使用索引的时候，条件表达式左侧应该尽量是原始字段，另外，使用<code>NULL</code>来做判断的时候，也是无法使用索引的</p>
 <p>有些时候我们会用到联合索引，比如<code>(user_id，equipment_id)</code>，这样的时候使用顺序则很重要</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> eq_record <span class="keyword">WHERE</span> user_id = <span class="number">1</span> <span class="keyword">AND</span> equipment_id = <span class="number">1</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> eq_record <span class="keyword">WHERE</span> equipment_id = <span class="number">1</span> <span class="keyword">AND</span> user_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>第二条语句仅仅是颠倒了顺序，就使得数据库无法充分使用索引从而变慢，所以当使用联合索引时应尽量让顺序和定义索引的时候保持一致</p>
-<h3 id="使用IN"><a href="#使用IN" class="headerlink" title="使用IN"></a>使用IN</h3><p>有些时候我们迫不得已会使用<code>IN</code>谓词例如:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_sample</span><br><span class="line"><span class="keyword">WHERE</span> sender_id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br><span class="line"><span class="keyword">AND</span> operator_id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<p>我们这里使用了两个子查询(先不考虑是否可以转换使用<code>EXISTS</code>谓词)，并且子查询的内容是一样的，如果我们这么执行，则会生成两个完全相同的子查询集合，所以我们可以这样写:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> eq_sample</span><br><span class="line"><span class="keyword">WHERE</span> (sender_id, operator_id)</span><br><span class="line"><span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<p>则会让sql重复使用一个子查询，尽量提高效率</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-
-
-          </div>
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">HuangStomach</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">5</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">4</span>
-                    <span class="site-state-item-name">分类</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/HuangStomach" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i></a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="mailto:nxmbest@qq.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i></a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://www.facebook.com/profile.php?id=100012662087547" target="_blank" title="FB Page" rel="external nofollow"><i class="fa fa-fw fa-facebook"></i></a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://www.instagram.com/jipeng.h" target="_blank" title="Instagram" rel="external nofollow"><i class="fa fa-fw fa-instagram"></i></a>
-                  
-                </span>
-              
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">HuangStomach</span>
-
-  
-
-  
-</div>
-
-
-  
-
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" rel="external nofollow" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
-
-
-
-  
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-      <style>
-        a.gitment-editor-footer-tip { display: none; }
-        .gitment-container.gitment-footer-container { display: none; }
-      </style>
-    
-
-    
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       figure>
 <p>第二条语句仅仅是颠倒了顺序，就使得数据库无法充分使用索引从而变慢，所以当使用联合索引时应尽量让顺序和定义索引的时候保持一致</p>
 <h3 id="使用IN"><a href="#使用IN" class="headerlink" title="使用IN"></a>使用IN</h3><p>有些时候我们迫不得已会使用<code>IN</code>谓词例如:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> eq_sample</span><br><span class="line"><span class="keyword">WHERE</span> sender_id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br><span class="line"><span class="keyword">AND</span> operator_id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
