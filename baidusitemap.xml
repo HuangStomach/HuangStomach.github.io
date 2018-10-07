@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>https://huangstomach.github.io/2018/10/07/Swoole%E4%B8%8E%E8%B7%A8%E5%9F%9F/</loc>
+    <lastmod>2018-10-07T12:17:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swoole与跨域</title>
+        <pubTime>2018-10-07T11:29:55.000Z</pubTime>
+        
+        <tag>PHP</tag>
+         
+         
+           
+             
+              <breadCrumb title="PHP" url="https://huangstomach.github.io/categories/PHP/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://huangstomach.github.io/2018/05/29/SQL%E4%B8%8E%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2018-09-25T11:01:10.000Z</lastmod>
+    <lastmod>2018-09-25T11:05:53.000Z</lastmod>
     <data>
         <display>
         <title>SQL与优化</title>
@@ -31,9 +51,9 @@
         <title>按需加载与代码分割</title>
         <pubTime>2018-08-25T05:31:19.000Z</pubTime>
         
-        <tag>JavaScript</tag>
-         
         <tag>Node</tag>
+         
+        <tag>JavaScript</tag>
          
          
            
@@ -53,9 +73,9 @@
         <title>静态文件与上传</title>
         <pubTime>2018-07-09T15:30:12.000Z</pubTime>
         
-        <tag>Node</tag>
-         
         <tag>PHP</tag>
+         
+        <tag>Node</tag>
          
          
            
