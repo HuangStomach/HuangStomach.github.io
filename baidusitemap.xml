@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://huangstomach.github.io/2018/11/02/ECMAScript%E4%B8%8E%E8%AF%AF%E5%8C%BA/</loc>
+    <lastmod>2018-11-02T15:21:11.000Z</lastmod>
+    <data>
+        <display>
+        <title>ECMAScript与误区</title>
+        <pubTime>2018-11-02T14:56:21.000Z</pubTime>
+        
+        <tag>JavaScript</tag>
+         
+         
+           
+             
+              <breadCrumb title="JavaScript" url="https://huangstomach.github.io/categories/JavaScript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://huangstomach.github.io/2018/10/07/Swoole%E4%B8%8E%E8%B7%A8%E5%9F%9F/</loc>
     <lastmod>2018-10-07T12:17:34.000Z</lastmod>
     <data>
@@ -51,9 +71,9 @@
         <title>按需加载与代码分割</title>
         <pubTime>2018-08-25T05:31:19.000Z</pubTime>
         
-        <tag>Node</tag>
-         
         <tag>JavaScript</tag>
+         
+        <tag>Node</tag>
          
          
            
