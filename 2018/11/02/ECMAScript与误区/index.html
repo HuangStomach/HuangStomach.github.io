@@ -112,18 +112,18 @@
 
 
 
-  <meta name="description" content="最近在和一些年轻的js开发者的交流中，发现大家对于一些较新的ECMAScript标准仍然有一些误区  const在一些网络文章中，经常可以看到对于const的一些描述，大多数都是说明: 一旦声明则不可进行修改的常量 我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题: 当我声明了一个常量数组后，我还可以向内推送元素么？ 可惜很大一部分的同学都会回答我不能，因为声明了就">
+  <meta name="description" content="最近在和一些年轻的js开发者的交流中，发现大家对于一些ECMAScript标准仍然有一些误区  const在一些网络文章中，经常可以看到对于const的一些描述，大多数都是说明: 一旦声明则不可进行修改的常量 我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题: 当我声明了一个常量数组后，我还可以向内推送元素么？ 可惜很大一部分的同学都会回答我不能，因为声明了就不能改">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ECMAScript与误区">
 <meta property="og:url" content="https://huangstomach.github.io/2018/11/02/ECMAScript与误区/index.html">
 <meta property="og:site_name" content="黄济芃的博客">
-<meta property="og:description" content="最近在和一些年轻的js开发者的交流中，发现大家对于一些较新的ECMAScript标准仍然有一些误区  const在一些网络文章中，经常可以看到对于const的一些描述，大多数都是说明: 一旦声明则不可进行修改的常量 我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题: 当我声明了一个常量数组后，我还可以向内推送元素么？ 可惜很大一部分的同学都会回答我不能，因为声明了就">
+<meta property="og:description" content="最近在和一些年轻的js开发者的交流中，发现大家对于一些ECMAScript标准仍然有一些误区  const在一些网络文章中，经常可以看到对于const的一些描述，大多数都是说明: 一旦声明则不可进行修改的常量 我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题: 当我声明了一个常量数组后，我还可以向内推送元素么？ 可惜很大一部分的同学都会回答我不能，因为声明了就不能改">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-02T15:21:11.000Z">
+<meta property="og:updated_time" content="2018-11-05T14:51:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECMAScript与误区">
-<meta name="twitter:description" content="最近在和一些年轻的js开发者的交流中，发现大家对于一些较新的ECMAScript标准仍然有一些误区  const在一些网络文章中，经常可以看到对于const的一些描述，大多数都是说明: 一旦声明则不可进行修改的常量 我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题: 当我声明了一个常量数组后，我还可以向内推送元素么？ 可惜很大一部分的同学都会回答我不能，因为声明了就">
+<meta name="twitter:description" content="最近在和一些年轻的js开发者的交流中，发现大家对于一些ECMAScript标准仍然有一些误区  const在一些网络文章中，经常可以看到对于const的一些描述，大多数都是说明: 一旦声明则不可进行修改的常量 我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题: 当我声明了一个常量数组后，我还可以向内推送元素么？ 可惜很大一部分的同学都会回答我不能，因为声明了就不能改">
 
 
 
@@ -355,12 +355,24 @@
                 
               
 
-              <time title="创建时间：2018-11-02 22:56:21 / 修改时间：23:21:11" itemprop="dateCreated datePublished" datetime="2018-11-02T22:56:21+08:00">2018-11-02</time>
+              <time title="创建时间：2018-11-02 22:56:21" itemprop="dateCreated datePublished" datetime="2018-11-02T22:56:21+08:00">2018-11-02</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-05 22:51:08" itemprop="dateModified" datetime="2018-11-05T22:51:08+08:00">2018-11-05</time>
               
             
           </span>
@@ -422,7 +434,7 @@
 
       
         <blockquote>
-<p>最近在和一些年轻的js开发者的交流中，发现大家对于一些较新的ECMAScript标准仍然有一些误区</p>
+<p>最近在和一些年轻的js开发者的交流中，发现大家对于一些ECMAScript标准仍然有一些误区</p>
 </blockquote>
 <h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>在一些网络文章中，经常可以看到对于<code>const</code>的一些描述，大多数都是说明: <em>一旦声明则不可进行修改的常量</em></p>
 <p>我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题:</p>
@@ -447,7 +459,7 @@
 <h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><p><code>React</code>充分应用着<code>class</code>的特性，虽然我没有仔细阅读过源码去看具体的实现是否和<code>ES6</code>中的完全相符，我经常看到这样的代码:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="title">extend</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>实际上哪怕你不声明，<code>class</code>也会隐式的生成并调用构造函数。</p>
-<h2 id="还是Class"><a href="#还是Class" class="headerlink" title="还是Class"></a>还是Class</h2><p>这仍然是原型链的一种实现，不要想太多了</p>
+<h2 id="还是Class"><a href="#还是Class" class="headerlink" title="还是Class"></a>还是Class</h2><p>这仍然是原型链的一种实现，不要想太多了。</p>
 <h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>我觉得最有用的特性现在看来还是尾递归优化……</p>
 
       
@@ -491,6 +503,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/29/Vyssotsky与最小生成树/" rel="prev" title="Vyssotsky与最小生成树">
+                Vyssotsky与最小生成树 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -571,7 +587,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -592,7 +608,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -617,7 +635,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -944,4 +966,3 @@
 
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
