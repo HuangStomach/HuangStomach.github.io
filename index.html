@@ -309,6 +309,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2019/02/12/KMP与有限状态自动机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuangStomach">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄济芃的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/KMP与有限状态自动机/" itemprop="url">
+                  KMP与有限状态自动机
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-12 20:48:12 / 修改时间：21:22:29" itemprop="dateCreated datePublished" datetime="2019-02-12T20:48:12+08:00">2019-02-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>最近在学习字符串查找算法时，遇到了KMP算法，其中关于这块的介绍较为晦涩，记录一下自己的理解</p>
+</blockquote>
+<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><p>字符串查找是一个应用非常多的功能，无论什么语言都会拥有该功能相关的一些周边函数或者概念，比如SQL。</p>
+<p>通常来说，普通开发日常使用的时候，最简单的算法也就是暴力查找：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> M = pat.length(); <span class="comment">// 需匹配的字符串</span></span><br><span class="line"><span class="keyword">int</span> N = txt.length(); <span class="comment">// 原文本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= N - M; i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> j</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (txt.charAt(i + j) != pat.charAt(j)) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (j == M) <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> -<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>这也是非常好理解的一种算法，将原文本中的每个字符都和匹配串的第一个字符进行比较，如果不匹配就去匹配下一个，如果匹配，则继续在匹配字符串中继续查找，直到匹配到末尾则是为成功。</p>
+<p>这个算法可以直接达到目的，但是其中仍然有一些可以优化的地方，比如在字符串<code>AABAABAAAA</code>中查找字符串<code>AABAAA</code>时，当匹配到<code>AABAAB</code>的<code>B</code>时，则必然出现匹配失败，按照暴力算法的代码，则会回退到第二个<code>A</code>再次进行匹配，然而很明显，我们知道实际上完全不需要进行这么多的回退，<strong>KMP</strong> 算法则是为了解决该问题而出现的。</p>
+<h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><p>KMP算法网上大多也有介绍，基本上都是基于<code>next[]</code>来判断需要进行多少个字符的回退。</p>
+<p>在Sedgewick的《Algorithms》一书中则使用了一种不太一样的计算方法，使得回退无需依赖于原字符串，而是仅仅使用匹配字符串就可以进行回退字符个数的预计，这就要归功于<strong>有限状态自动机</strong></p>
+<h2 id="有限状态自动机"><a href="#有限状态自动机" class="headerlink" title="有限状态自动机"></a>有限状态自动机</h2><p>概念非常简单，就是记录在有限状态下，每个状态可以迁移到的0个或多个状态。简单来说，就类似于一种固定好的有向图，当给入一个属于字母表中的字符的时候，都可以按照预先定义好的状态，按照方向转移到下一个状态中，对应KMP算法则意味着回退到什么地方。</p>
+<p><img src="/2019/02/12/KMP与有限状态自动机/DFA.png" alt="DFA"></p>
+<p>以图中为例，当匹配字符串为<code>ABABAC</code>时，有限状态机定义如下：</p>
+<p>先暂定输入字母表为<code>ABC</code>三个字符</p>
+<ul>
+<li><p>当输入<code>A</code>的时候，<code>A</code>被匹配到，状态机会认为其可以进行到状态<code>1</code>，输入另外两个则无法进行匹配，则为<code>0</code></p>
+</li>
+<li><p>当再次输入<code>A</code>的时候，<code>B</code>则无法被匹配到，<code>A</code>字符的状态则被回滚到上个地方<code>1</code>，而输入<code>B</code>被匹配记录状态为<code>2</code></p>
+</li>
+<li><p>再次输入<code>A</code>则又可以匹配到，此时的<code>A</code>会被记录状态为<code>3</code>，另外两个字符则还是会进行回退</p>
+</li>
+<li><p>当再次输入<code>A</code>的时候，<code>B</code>则无法被匹配到，<code>A</code>字符的状态则被回滚到上个地方<code>1</code>，而输入<code>B</code>被匹配记录状态为<code>4</code></p>
+</li>
+<li><p>再次输入<code>A</code>则又可以匹配到，此时的<code>A</code>会被记录状态为<code>5</code>，另外两个字符则还是会进行回退</p>
+</li>
+<li><p>再次输入<code>A</code>和<code>B</code>的时候都无法被匹配到，<code>A</code>还是会回滚到<code>1</code>处，而<code>B</code>因为此时重启状态为<code>3</code>，则退回到<code>4</code>的位置</p>
+</li>
+</ul>
+<p>其中重启状态是个比较有意思的概念，就是需要回退到的状态，由于需要右移和忽略最后一个匹配失败，回退状态会在<code>charAt(1)</code>到<code>charAt(j - 1)</code>之间，也就是上一个可以达到的状态。</p>
+<p>这种基于有限状态自动机的方式无需进行查找字符串中的回退，减少了消耗，是一种高效的查找算法</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/12/29/Vyssotsky与最小生成树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2104,7 +2291,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2220,7 +2407,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
