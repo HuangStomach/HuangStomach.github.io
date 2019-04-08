@@ -112,27 +112,25 @@
 
 
 
-  <meta name="description" content="之前在社交平台上随手给一个朋友回答了个小问题，发现按需加载和代码分割的概念非常容易混淆，也无法对前端应用的性能进行实质的提升  按需加载按需加载其实说起来非常高大上但是其实很简单，element官网上就有简单的说明 可以看到其使用了一个很简单的特性，ES6的import特性，可以简单的为我们引入需要的组件等: 123456789101112131415import Vue from &apos;vue&apos;;">
-<meta name="keywords" content="JavaScript,Node">
+  <meta name="description" content="最近在搞装修，发现在装修的过程中，很容易无法区分各种节点的主次，这时候就想起了拓扑排序。  装修装修的过程中，一般都要经历很多的节点，比如：砌墙、刷漆、安装空调新风、吊顶、铺设地板瓷砖、水电等等。 大部分的功能其实是相互依赖的，比如你必须砌墙了才能刷漆；安装了新风空调才能吊顶；确定了电器才能打橱柜等等等等。这种繁琐的问题自己捋的时候经常混乱，有时候不得不就咨询施工方，总是怕自己耽误了进度。 这时">
+<meta name="keywords" content="Java,Algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="按需加载与代码分割">
-<meta property="og:url" content="https://huangstomach.github.io/2018/08/25/按需加载与代码分割/index.html">
+<meta property="og:title" content="拓扑排序与装修">
+<meta property="og:url" content="https://huangstomach.github.io/2019/04/08/拓扑排序与装修/index.html">
 <meta property="og:site_name" content="黄济芃的博客">
-<meta property="og:description" content="之前在社交平台上随手给一个朋友回答了个小问题，发现按需加载和代码分割的概念非常容易混淆，也无法对前端应用的性能进行实质的提升  按需加载按需加载其实说起来非常高大上但是其实很简单，element官网上就有简单的说明 可以看到其使用了一个很简单的特性，ES6的import特性，可以简单的为我们引入需要的组件等: 123456789101112131415import Vue from &apos;vue&apos;;">
+<meta property="og:description" content="最近在搞装修，发现在装修的过程中，很容易无法区分各种节点的主次，这时候就想起了拓扑排序。  装修装修的过程中，一般都要经历很多的节点，比如：砌墙、刷漆、安装空调新风、吊顶、铺设地板瓷砖、水电等等。 大部分的功能其实是相互依赖的，比如你必须砌墙了才能刷漆；安装了新风空调才能吊顶；确定了电器才能打橱柜等等等等。这种繁琐的问题自己捋的时候经常混乱，有时候不得不就咨询施工方，总是怕自己耽误了进度。 这时">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://huangstomach.github.io/2018/08/25/按需加载与代码分割/1535175896358.jpg">
-<meta property="og:updated_time" content="2018-08-25T06:34:35.000Z">
+<meta property="og:updated_time" content="2019-04-08T13:04:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="按需加载与代码分割">
-<meta name="twitter:description" content="之前在社交平台上随手给一个朋友回答了个小问题，发现按需加载和代码分割的概念非常容易混淆，也无法对前端应用的性能进行实质的提升  按需加载按需加载其实说起来非常高大上但是其实很简单，element官网上就有简单的说明 可以看到其使用了一个很简单的特性，ES6的import特性，可以简单的为我们引入需要的组件等: 123456789101112131415import Vue from &apos;vue&apos;;">
-<meta name="twitter:image" content="https://huangstomach.github.io/2018/08/25/按需加载与代码分割/1535175896358.jpg">
+<meta name="twitter:title" content="拓扑排序与装修">
+<meta name="twitter:description" content="最近在搞装修，发现在装修的过程中，很容易无法区分各种节点的主次，这时候就想起了拓扑排序。  装修装修的过程中，一般都要经历很多的节点，比如：砌墙、刷漆、安装空调新风、吊顶、铺设地板瓷砖、水电等等。 大部分的功能其实是相互依赖的，比如你必须砌墙了才能刷漆；安装了新风空调才能吊顶；确定了电器才能打橱柜等等等等。这种繁琐的问题自己捋的时候经常混乱，有时候不得不就咨询施工方，总是怕自己耽误了进度。 这时">
 
 
 
 
 
 
-  <link rel="canonical" href="https://huangstomach.github.io/2018/08/25/按需加载与代码分割/"/>
+  <link rel="canonical" href="https://huangstomach.github.io/2019/04/08/拓扑排序与装修/"/>
 
 
 
@@ -142,7 +140,7 @@
   };
 </script>
 
-  <title>按需加载与代码分割 | 黄济芃的博客</title>
+  <title>拓扑排序与装修 | 黄济芃的博客</title>
   
 
 
@@ -315,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/08/25/按需加载与代码分割/">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2019/04/08/拓扑排序与装修/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HuangStomach">
@@ -332,7 +330,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">按需加载与代码分割
+          <h2 class="post-title" itemprop="name headline">拓扑排序与装修
               
             
           </h2>
@@ -357,7 +355,7 @@
                 
               
 
-              <time title="创建时间：2018-08-25 13:31:19 / 修改时间：14:34:35" itemprop="dateCreated datePublished" datetime="2018-08-25T13:31:19+08:00">2018-08-25</time>
+              <time title="创建时间：2019-04-08 20:38:45 / 修改时间：21:04:28" itemprop="dateCreated datePublished" datetime="2019-04-08T20:38:45+08:00">2019-04-08</time>
             
 
             
@@ -379,7 +377,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
 
                 
                 
@@ -394,8 +392,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/25/按需加载与代码分割/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/25/按需加载与代码分割/" itemprop="commentsCount"></span>
+                <a href="/2019/04/08/拓扑排序与装修/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2019/04/08/拓扑排序与装修/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -424,37 +422,27 @@
 
       
         <blockquote>
-<p>之前在社交平台上随手给一个朋友回答了个小问题，发现按需加载和代码分割的概念非常容易混淆，也无法对前端应用的性能进行实质的提升</p>
+<p>最近在搞装修，发现在装修的过程中，很容易无法区分各种节点的主次，这时候就想起了拓扑排序。</p>
 </blockquote>
-<h2 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h2><p>按需加载其实说起来非常高大上但是其实很简单，<a href="http://element.eleme.io/#/zh-CN/component/quickstart" target="_blank" rel="noopener">element官网</a>上就有简单的说明</p>
-<p>可以看到其使用了一个很简单的特性，ES6的import特性，可以简单的为我们引入需要的组件等:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Button, Select &#125; <span class="keyword">from</span> <span class="string">'element-ui'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span>;</span><br><span class="line"></span><br><span class="line">Vue.component(Button.name, Button);</span><br><span class="line">Vue.component(Select.name, Select);</span><br><span class="line"><span class="comment">/* 或写为</span></span><br><span class="line"><span class="comment"> * Vue.use(Button)</span></span><br><span class="line"><span class="comment"> * Vue.use(Select)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>我们可以看到，其中在引入<code>element-ui</code>的时候，仅仅引入了我们所需要的两个组件。</p>
-<p><code>element-ui</code>为我们提供了许多丰富的组件，但是可能在日常开发中我们只能用到一小部分，那么这个特性就会很好的帮助我们进行第三方组件引入的最小化了。</p>
-<p>不过我遇到的这位朋友使用的方法让我意想不到，给我描述的情况是，他的确只引入了需要的组件，但是整个前端应用还是非常的庞大，导致首屏加载仍然非常缓慢。</p>
-<p>仔细询问发现，他只是单纯使用了按需加载的属性，将所有需要用到的组件都像实例那样进行了引入。实际上，如果仅仅单纯的地使用这个特性，在使用了80%以上组件的情况下，结果和整体引入ui库也并无区别。</p>
-<h2 id="代码分割"><a href="#代码分割" class="headerlink" title="代码分割"></a>代码分割</h2><p>在我看来，按需加载实际上和代码分割的辅助功能是相辅相成的，在没有代码分割之下，所有的按需加载实际上仍然会将所有的第三方库全部压缩到一个工程文件中，导致该文件下载缓慢，运行缓慢。</p>
-<p>实际上这一概念已经存在很久了无论是:</p>
-<p><a href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html" target="_blank" rel="noopener">vue-router 路由懒加载</a></p>
-<p>亦或是</p>
-<p><a href="https://reactjs.org/docs/code-splitting.html" target="_blank" rel="noopener">react code-splitting</a></p>
-<p>中都有提到，当然他们主要也是借用的<code>webpack</code>的一项特性<a href="https://webpack.js.org/guides/code-splitting/" target="_blank" rel="noopener">code-splitting</a></p>
-<p>我们在这篇介绍中可以看到，webpack为我们提供了一种动态<code>import</code>的功能：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "lodash" */</span> <span class="string">'lodash'</span>);</span><br></pre></td></tr></table></figure>
-<p>就像文章中所说的，这种写法会帮我们将引入的文件单独进行一个文件的分割打包，这样我们庞大的应用就会被我们精心地拆成一个个单独的js文件，互不影响，异步加载，极大地节省了我们的首屏加载时间。</p>
-<p>这里和<strong>按需加载</strong>是相辅相成的，我们可以把我们需要使用的第三方组件分布在我们的各个小组件中，并让这些组件进行代码分割，从而达到最大化优化效果的目的。</p>
-<p>同样我们可以看到这个语法中有一行注释：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/* webpackChunkName: &quot;lodash&quot; */</span><br></pre></td></tr></table></figure>
-<p><code>webpack</code>会根据我们注释中所写的<code>ChunkName</code>也就是我们为这个包起得名字，将相同名字的包打入到一个文件中，这样哪怕我们希望打入一个包的组件之间没有继承关系，也能在这里进行处理。</p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>代码分割和按需加载已经很大程度上为我们进行了前端优化了，我们还需要优化什么呢？</p>
-<p>我的一些同事在代码分割上做的不是很理智，这里我们先介绍一个<code>webpack</code>推荐的分析辅助插件<code>webpack-bundle-analyzer</code>。</p>
-<p>个人觉得这是一款非常好用的插件，只要进行简单的配置：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> BundleAnalyzerPlugin(&#123;</span><br><span class="line">      analyzerMode: <span class="string">'server'</span>,</span><br><span class="line">      analyzerHost: <span class="string">'0.0.0.0'</span>,</span><br><span class="line">      analyzerPort: <span class="number">8181</span>,</span><br><span class="line">      reportFilename: <span class="string">'report.html'</span>,</span><br><span class="line">      defaultSizes: <span class="string">'parsed'</span>,</span><br><span class="line">      openAnalyzer: <span class="literal">true</span>,</span><br><span class="line">      generateStatsFile: <span class="literal">false</span>,</span><br><span class="line">      statsFilename: <span class="string">'stats.json'</span>,</span><br><span class="line">      statsOptions: <span class="literal">null</span>,</span><br><span class="line">      logLevel: <span class="string">'info'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置项我这边不再赘述了，运行<code>NODE_ENV=production ANALYZ=true npm_config_report=true npm run build</code>后则会为我们生成一个直观的build报告：</p>
-<p><img src="/2018/08/25/按需加载与代码分割/1535175896358.jpg" alt="分析结果"></p>
-<p>我们可以看到，每一个文件都被分割成了和自身大小比例相等的块，抛去这些最大的引入，我们可以看到右下角有一些几乎看不清的小引入，这些都是同事开发的功能组件，非常的小。</p>
-<p>根据这个分析，我们可以得到目前占用体积最大的组件是哪几个，如果过多的占用了我们的加载时间，则应该进行继续分割优化。</p>
-<p>但是如果我们的组件非常的小，如右下方的组件，不足1KB，个人觉得就不用进行拆分了，和其父组件在一起就可以，否则这种细碎组件拆分过多，加载性能上没有太多提升反而加大了http请求的压力。</p>
+<h2 id="装修"><a href="#装修" class="headerlink" title="装修"></a>装修</h2><p>装修的过程中，一般都要经历很多的节点，比如：砌墙、刷漆、安装空调新风、吊顶、铺设地板瓷砖、水电等等。</p>
+<p>大部分的功能其实是相互依赖的，比如你必须砌墙了才能刷漆；安装了新风空调才能吊顶；确定了电器才能打橱柜等等等等。这种繁琐的问题自己捋的时候经常混乱，有时候不得不就咨询施工方，总是怕自己耽误了进度。</p>
+<p>这时候突然想到了算法中的调度问题。</p>
+<h2 id="逆后序"><a href="#逆后序" class="headerlink" title="逆后序"></a>逆后序</h2><p>一般来说，数据结构（尤其是图）的遍历一般分为三种排列顺序。</p>
+<ul>
+<li>前序</li>
+<li>后序</li>
+<li>逆后序</li>
+</ul>
+<p>其中逆后序定义是：<em>在递归调用之后将顶点压入栈</em></p>
+<p>也就是说，在节点没有被彻底搜索完之前是不会进入到栈中的，也就是说最先被加入栈的则是没有后续节点的节点，也就是最后的工序比如：<strong>进家具</strong>。</p>
+<p>其中，这些步骤，也就是我们的节点，相互的依赖关系则将它们形成了一副<em>有向图</em>，这也是进行逆后序的关键。</p>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>拓扑排序有可能有很多种算法来实现，主要是为了将杂乱无章的调度问题规划为一个线性的有序排列，为我们解决各种各样的问题，比如装修。逆后序就是其中的一种简单算法。</p>
+<p>逆后序实现起来非常简单，如定义一样，只需要在深度优先搜索中加入简单的一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line"><span class="keyword">private</span> Stack&lt;Integer&gt; reversePost;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 示意</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Digraph G, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    marked[v] = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> w: G.adj(v)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!marked[w]) dfs(G, w);</span><br><span class="line">    &#125;</span><br><span class="line">    reversePost.push(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中再想获取拓扑排序的时候，只需要简单的进行出栈操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (int v: reversePost) &#123;</span><br><span class="line">    System.out.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就可以非常简单直观的输出所需要的顺序，从而简化了调度任务。</p>
+<p>我也就知道我得先赶紧买空调和新风了。</p>
 
       
     </div>
@@ -475,9 +463,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
-            <a href="/tags/Node/" rel="tag"># Node</a>
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
           
         </div>
       
@@ -490,8 +478,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/28/栈与尾递归优化/" rel="next" title="栈与尾递归优化">
-                <i class="fa fa-chevron-left"></i> 栈与尾递归优化
+              <a href="/2019/02/12/KMP与有限状态自动机/" rel="next" title="KMP与有限状态自动机">
+                <i class="fa fa-chevron-left"></i> KMP与有限状态自动机
               </a>
             
           </div>
@@ -499,10 +487,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/07/Swoole与跨域/" rel="prev" title="Swoole与跨域">
-                Swoole与跨域 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -695,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#按需加载"><span class="nav-number">1.</span> <span class="nav-text">按需加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码分割"><span class="nav-number">2.</span> <span class="nav-text">代码分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#装修"><span class="nav-number">1.</span> <span class="nav-text">装修</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逆后序"><span class="nav-number">2.</span> <span class="nav-text">逆后序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓扑排序"><span class="nav-number">3.</span> <span class="nav-text">拓扑排序</span></a></li></ol></div>
             
 
           </div>
@@ -891,7 +875,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: '1535175079000',
+            id: '1554727125000',
             owner: 'Huangstomach',
             repo: 'HuangStomach.github.io',
             
