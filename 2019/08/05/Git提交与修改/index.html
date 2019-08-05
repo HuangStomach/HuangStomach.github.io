@@ -112,27 +112,25 @@
 
 
 
-  <meta name="description" content="最近在学习字符串查找算法时，遇到了KMP算法，其中关于这块的介绍较为晦涩，记录一下自己的理解  字符串查找字符串查找是一个应用非常多的功能，无论什么语言都会拥有该功能相关的一些周边函数或者概念，比如SQL。 通常来说，普通开发日常使用的时候，最简单的算法也就是暴力查找： 12345678910111213int M = pat.length(); // 需匹配的字符串int N = txt.le">
-<meta name="keywords" content="Java,Algorithm">
+  <meta name="description" content="Git要求开发者在编写提交的时候，尽量要填写有用的信息；在工作中更甚，提交写的完善完备更能让问题追踪变得容易可控，不过可能会遇到不小心写错了提交内容的情况，这时候就一定要在推送之前想办法把错误的提交信息修正掉。  提交Git提交是一件非常简单的事情，对于我来说不过是先检查一下需要提交的文件，然后直接一个git commmit就结束了的工作，当敲下回车，就会出现熟悉的界面： 12345678910">
+<meta name="keywords" content="Git,Shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="KMP与有限状态自动机">
-<meta property="og:url" content="https://huangstomach.github.io/2019/02/12/KMP与有限状态自动机/index.html">
+<meta property="og:title" content="Git提交与修改">
+<meta property="og:url" content="https://huangstomach.github.io/2019/08/05/Git提交与修改/index.html">
 <meta property="og:site_name" content="黄济芃的博客">
-<meta property="og:description" content="最近在学习字符串查找算法时，遇到了KMP算法，其中关于这块的介绍较为晦涩，记录一下自己的理解  字符串查找字符串查找是一个应用非常多的功能，无论什么语言都会拥有该功能相关的一些周边函数或者概念，比如SQL。 通常来说，普通开发日常使用的时候，最简单的算法也就是暴力查找： 12345678910111213int M = pat.length(); // 需匹配的字符串int N = txt.le">
+<meta property="og:description" content="Git要求开发者在编写提交的时候，尽量要填写有用的信息；在工作中更甚，提交写的完善完备更能让问题追踪变得容易可控，不过可能会遇到不小心写错了提交内容的情况，这时候就一定要在推送之前想办法把错误的提交信息修正掉。  提交Git提交是一件非常简单的事情，对于我来说不过是先检查一下需要提交的文件，然后直接一个git commmit就结束了的工作，当敲下回车，就会出现熟悉的界面： 12345678910">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://huangstomach.github.io/2019/02/12/KMP与有限状态自动机/DFA.png">
-<meta property="og:updated_time" content="2019-02-12T13:22:29.000Z">
+<meta property="og:updated_time" content="2019-08-05T02:52:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KMP与有限状态自动机">
-<meta name="twitter:description" content="最近在学习字符串查找算法时，遇到了KMP算法，其中关于这块的介绍较为晦涩，记录一下自己的理解  字符串查找字符串查找是一个应用非常多的功能，无论什么语言都会拥有该功能相关的一些周边函数或者概念，比如SQL。 通常来说，普通开发日常使用的时候，最简单的算法也就是暴力查找： 12345678910111213int M = pat.length(); // 需匹配的字符串int N = txt.le">
-<meta name="twitter:image" content="https://huangstomach.github.io/2019/02/12/KMP与有限状态自动机/DFA.png">
+<meta name="twitter:title" content="Git提交与修改">
+<meta name="twitter:description" content="Git要求开发者在编写提交的时候，尽量要填写有用的信息；在工作中更甚，提交写的完善完备更能让问题追踪变得容易可控，不过可能会遇到不小心写错了提交内容的情况，这时候就一定要在推送之前想办法把错误的提交信息修正掉。  提交Git提交是一件非常简单的事情，对于我来说不过是先检查一下需要提交的文件，然后直接一个git commmit就结束了的工作，当敲下回车，就会出现熟悉的界面： 12345678910">
 
 
 
 
 
 
-  <link rel="canonical" href="https://huangstomach.github.io/2019/02/12/KMP与有限状态自动机/"/>
+  <link rel="canonical" href="https://huangstomach.github.io/2019/08/05/Git提交与修改/"/>
 
 
 
@@ -142,7 +140,7 @@
   };
 </script>
 
-  <title>KMP与有限状态自动机 | 黄济芃的博客</title>
+  <title>Git提交与修改 | 黄济芃的博客</title>
   
 
 
@@ -315,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2019/02/12/KMP与有限状态自动机/">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2019/08/05/Git提交与修改/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HuangStomach">
@@ -332,7 +330,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">KMP与有限状态自动机
+          <h2 class="post-title" itemprop="name headline">Git提交与修改
               
             
           </h2>
@@ -357,7 +355,7 @@
                 
               
 
-              <time title="创建时间：2019-02-12 20:48:12 / 修改时间：21:22:29" itemprop="dateCreated datePublished" datetime="2019-02-12T20:48:12+08:00">2019-02-12</time>
+              <time title="创建时间：2019-08-05 10:27:14 / 修改时间：10:52:15" itemprop="dateCreated datePublished" datetime="2019-08-05T10:27:14+08:00">2019-08-05</time>
             
 
             
@@ -379,7 +377,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a></span>
 
                 
                 
@@ -394,8 +392,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/KMP与有限状态自动机/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2019/02/12/KMP与有限状态自动机/" itemprop="commentsCount"></span>
+                <a href="/2019/08/05/Git提交与修改/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2019/08/05/Git提交与修改/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -424,36 +422,25 @@
 
       
         <blockquote>
-<p>最近在学习字符串查找算法时，遇到了KMP算法，其中关于这块的介绍较为晦涩，记录一下自己的理解</p>
+<p>Git要求开发者在编写提交的时候，尽量要填写有用的信息；在工作中更甚，提交写的完善完备更能让问题追踪变得容易可控，不过可能会遇到不小心写错了提交内容的情况，这时候就一定要在推送之前想办法把错误的提交信息修正掉。</p>
 </blockquote>
-<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><p>字符串查找是一个应用非常多的功能，无论什么语言都会拥有该功能相关的一些周边函数或者概念，比如SQL。</p>
-<p>通常来说，普通开发日常使用的时候，最简单的算法也就是暴力查找：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> M = pat.length(); <span class="comment">// 需匹配的字符串</span></span><br><span class="line"><span class="keyword">int</span> N = txt.length(); <span class="comment">// 原文本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= N - M; i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> j</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (txt.charAt(i + j) != pat.charAt(j)) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (j == M) <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> -<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>这也是非常好理解的一种算法，将原文本中的每个字符都和匹配串的第一个字符进行比较，如果不匹配就去匹配下一个，如果匹配，则继续在匹配字符串中继续查找，直到匹配到末尾则是为成功。</p>
-<p>这个算法可以直接达到目的，但是其中仍然有一些可以优化的地方，比如在字符串<code>AABAABAAAA</code>中查找字符串<code>AABAAA</code>时，当匹配到<code>AABAAB</code>的<code>B</code>时，则必然出现匹配失败，按照暴力算法的代码，则会回退到第二个<code>A</code>再次进行匹配，然而很明显，我们知道实际上完全不需要进行这么多的回退，<strong>KMP</strong> 算法则是为了解决该问题而出现的。</p>
-<h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><p>KMP算法网上大多也有介绍，基本上都是基于<code>next[]</code>来判断需要进行多少个字符的回退。</p>
-<p>在Sedgewick的《Algorithms》一书中则使用了一种不太一样的计算方法，使得回退无需依赖于原字符串，而是仅仅使用匹配字符串就可以进行回退字符个数的预计，这就要归功于<strong>有限状态自动机</strong></p>
-<h2 id="有限状态自动机"><a href="#有限状态自动机" class="headerlink" title="有限状态自动机"></a>有限状态自动机</h2><p>概念非常简单，就是记录在有限状态下，每个状态可以迁移到的0个或多个状态。简单来说，就类似于一种固定好的有向图，当给入一个属于字母表中的字符的时候，都可以按照预先定义好的状态，按照方向转移到下一个状态中，对应KMP算法则意味着回退到什么地方。</p>
-<p><img src="/2019/02/12/KMP与有限状态自动机/DFA.png" alt="DFA"></p>
-<p>以图中为例，当匹配字符串为<code>ABABAC</code>时，有限状态机定义如下：</p>
-<p>先暂定输入字母表为<code>ABC</code>三个字符</p>
-<ul>
-<li><p>当输入<code>A</code>的时候，<code>A</code>被匹配到，状态机会认为其可以进行到状态<code>1</code>，输入另外两个则无法进行匹配，则为<code>0</code></p>
-</li>
-<li><p>当再次输入<code>A</code>的时候，<code>B</code>则无法被匹配到，<code>A</code>字符的状态则被回滚到上个地方<code>1</code>，而输入<code>B</code>被匹配记录状态为<code>2</code></p>
-</li>
-<li><p>再次输入<code>A</code>则又可以匹配到，此时的<code>A</code>会被记录状态为<code>3</code>，另外两个字符则还是会进行回退</p>
-</li>
-<li><p>当再次输入<code>A</code>的时候，<code>B</code>则无法被匹配到，<code>A</code>字符的状态则被回滚到上个地方<code>1</code>，而输入<code>B</code>被匹配记录状态为<code>4</code></p>
-</li>
-<li><p>再次输入<code>A</code>则又可以匹配到，此时的<code>A</code>会被记录状态为<code>5</code>，另外两个字符则还是会进行回退</p>
-</li>
-<li><p>再次输入<code>A</code>和<code>B</code>的时候都无法被匹配到，<code>A</code>还是会回滚到<code>1</code>处，而<code>B</code>因为此时重启状态为<code>3</code>，则退回到<code>4</code>的位置</p>
-</li>
-</ul>
-<p>其中重启状态是个比较有意思的概念，就是需要回退到的状态，由于需要右移和忽略最后一个匹配失败，回退状态会在<code>charAt(1)</code>到<code>charAt(j - 1)</code>之间，也就是上一个可以达到的状态。</p>
-<p>这种基于有限状态自动机的方式无需进行查找字符串中的回退，减少了消耗，是一种高效的查找算法</p>
-
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>Git提交是一件非常简单的事情，对于我来说不过是先检查一下需要提交的文件，然后直接一个<code>git commmit</code>就结束了的工作，当敲下回车，就会出现熟悉的界面：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> post Git提交与修改</span><br><span class="line"></span><br><span class="line"># Please enter the commit message <span class="keyword">for</span> your <span class="keyword">changes</span>. Lines starting</span><br><span class="line"># with <span class="string">'#'</span> will <span class="keyword">be</span> ignored, <span class="built_in">and</span> <span class="keyword">an</span> <span class="built_in">empty</span> message aborts the commit.</span><br><span class="line">#</span><br><span class="line"># Date:      Mon Aug <span class="number">5</span> <span class="number">10</span>:<span class="number">17</span>:<span class="number">05</span> <span class="number">2019</span> +<span class="number">0800</span></span><br><span class="line">#</span><br><span class="line"># On branch master</span><br><span class="line"># Your branch <span class="keyword">is</span> ahead of <span class="string">'origin/master'</span> by <span class="number">1</span> commit.</span><br><span class="line">#   (use <span class="string">"git push"</span> <span class="keyword">to</span> publish your local commits)</span><br><span class="line">#</span><br><span class="line"># Changes <span class="keyword">to</span> <span class="keyword">be</span> committed:</span><br><span class="line">#       <span class="keyword">new</span> <span class="keyword">file</span>:   <span class="keyword">source</span>/_posts/Git提交与修改.md</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+<p>其中第一行就是提交描述信息，也是最重要的地方；第六行是提交时间，第十二行开始则是本次提交修改的文件概览。</p>
+<p>有的时候开发者比较自信或者非常熟练，直接使用<code>git commit -m &lt;message&gt;</code>来进行快速提交。其实commit中除了<code>-m --message</code>之外还可以快速设置一些其他的信息:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Commit message options</span><br><span class="line">    --author &lt;author&gt;             override author <span class="keyword">for</span> commit</span><br><span class="line">    --date &lt;date&gt;                 override date <span class="keyword">for</span> commit</span><br><span class="line">    -m, --message &lt;message&gt;       commit message</span><br><span class="line">    -c, --reedit-message &lt;commit&gt; reuse and edit message from specified commit</span><br><span class="line">    -C, --reuse-message &lt;commit&gt;  reuse message from specified commit</span><br><span class="line">    --reset-author                the commit is authored by me now (used with -C/-c/--amend)</span><br></pre></td></tr></table></figure>
+<p>这边随便列举了几个，如我们可以快速设置作者、时间，甚至使用<code>--reset-author</code>来把某个提交的作者设置成自己，这个参数的说明很有意思，而且后面标注了，要伴随<code>-C/-c/--amend</code>使用，这是什么参数？</p>
+<h2 id="修改提交"><a href="#修改提交" class="headerlink" title="修改提交"></a>修改提交</h2><p>我们使用<code>man</code>命令来查看一下说明，可以看到其实和：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD^</span><br><span class="line">$ <span class="comment">#... do something else to come up with the right tree ...</span></span><br><span class="line">$ git commit -c ORIG_HEAD</span><br></pre></td></tr></table></figure>
+<p>是等价的，实际上是创建了一个新的提交而不是直接修改上一个提交，当我键入<code>git commit --amend</code>之后，就会出现熟悉的界面了，这时候就可以把错误的提交信息修正掉了。</p>
+<p>同时也可以和其他快捷参数一起使用，比如说你不想看你之前提交信息写的究竟是什么，也可以直接使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend -m &lt;message&gt;</span><br></pre></td></tr></table></figure>
+<p>来快速修改提交信息，同时也可以根据上述参数描述进行修改，比如修改时间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --date &lt;date&gt;</span><br></pre></td></tr></table></figure>
+<p>不过这里需要注意的是这里的参数是特定的时间格式，可以尝试使用<code>date</code>，不过不能直接使用<code>date</code>命令，因为此处的参数是要求符合<code>RFC 2822</code>标准的，所以需要使用如下命令来查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ date -R</span><br><span class="line">Mon, 05 Aug 2019 10:50:35 +0800</span><br></pre></td></tr></table></figure>
+<p>然后再根据这个格式修改时间就可以完成修改commit提交时间的操作了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --date=`Mon, 05 Aug 2019 10:50:35 +0800`</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -473,9 +460,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/Git/" rel="tag"># Git</a>
           
-            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
           
         </div>
       
@@ -488,8 +475,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/29/Vyssotsky与最小生成树/" rel="next" title="Vyssotsky与最小生成树">
-                <i class="fa fa-chevron-left"></i> Vyssotsky与最小生成树
+              <a href="/2019/04/08/拓扑排序与装修/" rel="next" title="拓扑排序与装修">
+                <i class="fa fa-chevron-left"></i> 拓扑排序与装修
               </a>
             
           </div>
@@ -497,10 +484,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/08/拓扑排序与装修/" rel="prev" title="拓扑排序与装修">
-                拓扑排序与装修 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -699,7 +682,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串查找"><span class="nav-number">1.</span> <span class="nav-text">字符串查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP算法"><span class="nav-number">2.</span> <span class="nav-text">KMP算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有限状态自动机"><span class="nav-number">3.</span> <span class="nav-text">有限状态自动机</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#提交"><span class="nav-number">1.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改提交"><span class="nav-number">2.</span> <span class="nav-text">修改提交</span></a></li></ol></div>
             
 
           </div>
@@ -895,7 +878,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: '1549975692000',
+            id: '1564972034000',
             owner: 'Huangstomach',
             repo: 'HuangStomach.github.io',
             
