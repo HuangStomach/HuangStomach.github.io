@@ -2597,4 +2597,23 @@ ul.breadcrumb li+li:last-child {
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .content-wrap {
- 
+    width: 100%;
+    padding: 20px;
+    border-radius: initial;
+  }
+}
+@media (max-width: 767px) {
+  .content-wrap {
+    width: 100%;
+    padding: 20px;
+    min-height: auto;
+    border-radius: initial;
+  }
+}
+.sidebar {
+  position: static;
+  float: left;
+  margin-top: 300px;
+  width: 240px;
+  background: #eee;
+  box-shadow: none;
