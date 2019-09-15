@@ -56,14 +56,14 @@
 </script>
 
   <meta name="description" content="最近在阅读清华大学的数据结构教材时，发现其中对于拓扑排序的更为易懂的实现。  拓扑排序，之前也写过，即为一种将杂乱无章的调度问题规划为一个线性的有序排列的排序算法，其中书上是这么描述的:  什么是拓扑排序？简单的说，由某个集合上的一个偏序得到该集合上的一个全序，这个操作称之为拓扑排序。  说实话如果对离散数学不太了解，突然一看还是很难懂的。不过其中对于该排序的实现则很简单易懂。 入度入度，这个概">
-<meta name="keywords" content="C++,Algorithm">
+<meta name="keywords" content="Algorithm,C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拓扑排序与入度">
 <meta property="og:url" content="https://huangstomach.github.io/2019/09/15/拓扑排序与入度/index.html">
 <meta property="og:site_name" content="黄济芃的博客">
 <meta property="og:description" content="最近在阅读清华大学的数据结构教材时，发现其中对于拓扑排序的更为易懂的实现。  拓扑排序，之前也写过，即为一种将杂乱无章的调度问题规划为一个线性的有序排列的排序算法，其中书上是这么描述的:  什么是拓扑排序？简单的说，由某个集合上的一个偏序得到该集合上的一个全序，这个操作称之为拓扑排序。  说实话如果对离散数学不太了解，突然一看还是很难懂的。不过其中对于该排序的实现则很简单易懂。 入度入度，这个概">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-15T03:46:46.000Z">
+<meta property="og:updated_time" content="2019-09-15T15:02:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拓扑排序与入度">
 <meta name="twitter:description" content="最近在阅读清华大学的数据结构教材时，发现其中对于拓扑排序的更为易懂的实现。  拓扑排序，之前也写过，即为一种将杂乱无章的调度问题规划为一个线性的有序排列的排序算法，其中书上是这么描述的:  什么是拓扑排序？简单的说，由某个集合上的一个偏序得到该集合上的一个全序，这个操作称之为拓扑排序。  说实话如果对离散数学不太了解，突然一看还是很难懂的。不过其中对于该排序的实现则很简单易懂。 入度入度，这个概">
@@ -259,7 +259,7 @@
                 
               
 
-              <time title="创建时间：2019-09-15 11:25:06 / 修改时间：11:46:46" itemprop="dateCreated datePublished" datetime="2019-09-15T11:25:06+08:00">2019-09-15</time>
+              <time title="创建时间：2019-09-15 11:25:06 / 修改时间：23:02:10" itemprop="dateCreated datePublished" datetime="2019-09-15T11:25:06+08:00">2019-09-15</time>
             </span>
           
             
@@ -303,12 +303,10 @@
 <p>其中，被指向的路径的个数则称为入度，也可以想象成被多少个人指着，千夫所指的话这个人的入度就是这个<strong>千</strong>了。其中入度为0的节点（即没有路径指向该节点）则可以被视为起点，还是应用之前的<a href="https://huangstomach.github.io/2019/04/08/拓扑排序与装修/">装修例子</a>来表述，那么就是一项可以无需等待其他工程完成的工程，比如砸墙。</p>
 <p>同样，出度所描述的就是该节点指向其他节点的路径数。</p>
 <h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>有了入度概念的引入拓扑排序就很简单了，简单的说我们就是要将当前可以直接进行的工作进行排序，于是我们可以直接在构造图，或者拿到图的时候，对其进行一个入度的记录并排序，简单的使用对象或数组都可以做到：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们只要找到一个起点，选择他为入度，就可以开始排序。</p>
 <p>将起点放入我们拓扑排序的栈顶，然后将该节点所链接的节点的入度均减少1，然后从中找到入度为0的节点，再次进行同样的操作，拓扑排序就简单的完成了：</p>
-<p><code>`</code> c++<br>// 书中的示意代码<br>InitStack(S);<br>for (int i = 0, i &lt; G.vexnum; i++) {<br>    if (!indegree[i]) Push(S, i); // 查找入度为0的节点<br>}</p>
-<p>count = 0;<br>while (!StackEmpty(S)) {<br>    Pop(S, i); // 取出入度为0的节点<br>    count++;<br>    for (Node p = G.verices[i].firstarc; p; p = p-&gt;nextarc) {<br>        k = p-&gt;adjvex;<br>        if (!–indegree[i]) Push(S, k); // 入度减为0，则入栈<br>    }<br>}</p>
-<p>if (count &lt; G.vexnum) return ERROR;<br><code>`</code>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 书中的示意代码</span></span><br><span class="line">InitStack(S);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i &lt; G.vexnum; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!indegree[i]) Push(S, i); <span class="comment">// 查找入度为0的节点</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (!StackEmpty(S)) &#123;</span><br><span class="line">    Pop(S, i); <span class="comment">// 取出入度为0的节点</span></span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">for</span> (Node p = G.verices[i].firstarc; p; p = p-&gt;nextarc) &#123;</span><br><span class="line">        k = p-&gt;adjvex;</span><br><span class="line">        <span class="keyword">if</span> (!--indegree[i]) Push(S, k); <span class="comment">// 入度减为0，则入栈</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (count &lt; G.vexnum) <span class="keyword">return</span> ERROR;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -324,9 +322,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/C/" rel="tag"># C++</a>
-            
               <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            
+              <a href="/tags/C/" rel="tag"># C++</a>
             
           </div>
         
@@ -465,15 +463,6 @@
       
         
       
-        <a href="https://www.facebook.com/profile.php?id=100012662087547" title="FB Page &rarr; https://www.facebook.com/profile.php?id=100012662087547" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-      
-        
-      
         <a href="https://www.instagram.com/jipeng.h" title="Instagram &rarr; https://www.instagram.com/jipeng.h" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
       </span>
     
@@ -564,4 +553,3 @@
 
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
