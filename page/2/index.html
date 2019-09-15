@@ -4,113 +4,56 @@
 
 
 
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.7.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-  <meta name="google-site-verification" content="JIoJYQLXUMHBZfXbnazdyv_v0mfXHpgskwwlfvZGooc" />
-
-
-
-
-
-
-
-
-  <meta name="baidu-site-verification" content="0bPMZzrl7R" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '6.3.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
-    fastclick: false,
+    mediumzoom: false,
     lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    pangu: false,
     algolia: {
-      applicationID: '',
+      appID: '',
       apiKey: '',
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
   };
 </script>
-
-
-  
-
-
-
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="黄济芃的博客">
@@ -119,19 +62,17 @@
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="黄济芃的博客">
+  <link rel="canonical" href="https://huangstomach.github.io/page/2/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://huangstomach.github.io/page/2/"/>
-
-
-
-<script type="text/javascript" id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome: true,
+    isPost: false,
+    isPage: false,
+    isArchive: false
   };
 </script>
 
@@ -145,64 +86,49 @@
 
 
 
-
   <noscript>
-  <style type="text/css">
-    .use-motion .motion-element,
-    .use-motion .brand,
-    .use-motion .menu-item,
-    .sidebar-inner,
-    .use-motion .post-block,
-    .use-motion .pagination,
-    .use-motion .comments,
-    .use-motion .post-header,
-    .use-motion .post-body,
-    .use-motion .collection-title { opacity: initial; }
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
-    .use-motion .logo,
-    .use-motion .site-title,
-    .use-motion .site-subtitle {
-      opacity: initial;
-      top: initial;
-    }
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-    .use-motion {
-      .logo-line-before i { left: initial; }
-      .logo-line-after i { right: initial; }
-    }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <div class="custom-logo-site-title">
+    <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">黄济芃的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-    
-      
         <h1 class="site-subtitle" itemprop="description">这玩意能坚持写？</h1>
       
-    
   </div>
 
   <div class="site-nav-toggle">
@@ -215,100 +141,211 @@
 </div>
 
 
-
 <nav class="site-nav">
   
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-    <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
-    <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
-    <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
-    <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-    <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
-  </li>
-
+  <ul id="menu" class="menu">
       
       
-    </ul>
-  
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
 
-  
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
-  
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
 </nav>
-
-
-
-  
-
-
-
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          
             
 
-          
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+  <div id="posts" class="posts-expand">
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/07/09/静态文件与上传/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuangStomach">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄济芃的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+            
+            <a href="/2018/07/09/静态文件与上传/" class="post-title-link" itemprop="url">静态文件与上传</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-09 23:30:12" itemprop="dateCreated datePublished" datetime="2018-07-09T23:30:12+08:00">2018-07-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-08-18 11:32:06" itemprop="dateModified" datetime="2018-08-18T11:32:06+08:00">2018-08-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
+          <blockquote>
+<p>在日常的后端开发中， 不可避免的就是要处理各种文件上传的需要， 随之而来的就是各种下载的需求， 我遇到的大部分开发者都会考虑到在上传的时候做简单的文件校验（有的也没有做）， 然而在文件下载的问题上， 则采用依赖于web服务器的静态文件传输， 经常造成很多的麻烦。</p>
+</blockquote>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>大部分开发者实际上在上传的时候都会对文件进行校验， 并且为了安全性考虑甚至会将文件更换名称。但是更换名称后简单的依赖于web服务器进行下载则会让用户拥有一种我的文件被篡改过的感觉（文件名发生了变化）。</p>
+<p>依赖于web服务器的文件上传，则可以认为是相对依赖于浏览器的url的一种操作，一旦我们将web应用部署在二级目录下，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://origin/path/</span><br></pre></td></tr></table></figure>
+<p>则很容易出现存储问题，比如我们存储的目录很可能因为这个原因需要多嵌套一层<code>path</code>目录</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>下载遇到的问题同理，最经常遇到的则是静态文件仅仅通过web服务器来做下载，不方便做权限管理，并且容易发生盗用资源的现象，其他的web应用用着你的资源，但是却耗费着你的带宽。</p>
+<p>另一个则和上传的问题一样，下载的时候也避免不了遇到二级目录的问题，这时候web服务器很容易就带着二级目录去做寻找。</p>
+<p>并且在资源进行删除的时候，其相关的静态文件如果没有进行处理也不好做清理，容易造成垃圾文件堆叠。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>我个人在这方面也是有吃过很多的亏，上面的问题全部都碰到过，最后决定使用各种编程语言中读取文件的api来进行解决:</p>
+<ul>
+<li>文件名更换</li>
+<li>二级目录的问题</li>
+<li>权限</li>
+<li>下载</li>
+</ul>
+<p>其中文件名更换非常的简单，我习惯于在文件进行存储时，对其旧的文件名进行持久化存储，以PHP为例:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// DATA_DIR 为web应用根目录的相对路径常量</span></span><br><span class="line"></span><br><span class="line">$uniqid = uniqid();</span><br><span class="line">$path = DATA_DIR . <span class="string">"/attached/&#123;$uniqid&#125;"</span>;</span><br><span class="line">    </span><br><span class="line">$ext = pathinfo($file[<span class="string">'name'</span>], PATHINFO_EXTENSION);</span><br><span class="line">$name = date(<span class="string">"YmdHis"</span>) . <span class="string">'_'</span> . rand(<span class="number">10000</span>, <span class="number">99999</span>) . <span class="string">'.'</span> . $ext;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> (is_dir($path) &amp;&amp; is_uploaded_file($file[<span class="string">'tmp_name'</span>])</span><br><span class="line">&amp;&amp; move_uploaded_file($file[<span class="string">'tmp_name'</span>], <span class="string">"&#123;$path&#125;/&#123;$name&#125;"</span>)) &#123;</span><br><span class="line">    $old = $file[<span class="string">'name'</span>];</span><br><span class="line">    $dir = $path;</span><br><span class="line">    $path = <span class="string">"&#123;$path&#125;/&#123;$name&#125;"</span>;</span><br><span class="line">    $mime = $file[<span class="string">'type'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以获得文件相关的四个变量，其中<code>$old</code>则为我们解决了文件名更换的问题，我们会将用户文件的文件名进行存储，而在我们本地则使用了<code>$name</code>来重命名保证安全文件</p>
+<p>同时，二级目录问题也得到了解决，这里使用的是我们自定义的目录<code>$path</code>，不会受到部署的影响。</p>
+<p>在下载的时候，我们也可以依赖于编程语言提供的api：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// APP_PATH 为web应用根目录的绝对路径常量</span></span><br><span class="line"></span><br><span class="line">$article; <span class="comment">// 假设我们的数据库映射对象是一篇文章</span></span><br><span class="line"><span class="keyword">if</span> (!$article-&gt;id) <span class="keyword">$this</span>-&gt;redirect(<span class="string">'error/404'</span>);</span><br><span class="line">$fullpath = APP_PATH . <span class="string">'/'</span> . $article-&gt;path;</span><br><span class="line">    </span><br><span class="line">header(<span class="string">"Content-Type: &#123;$article-&gt;mime&#125;"</span>);</span><br><span class="line">header(<span class="string">'Accept-Ranges: bytes'</span>);</span><br><span class="line">header(<span class="string">'Accept-Length:'</span> . filesize($fullpath));</span><br><span class="line">header(<span class="string">"Content-Disposition: attachment; filename=\"&#123;$article-&gt;old&#125;\""</span>);</span><br><span class="line">ob_clean();</span><br><span class="line"><span class="keyword">echo</span> file_get_contents($fullpath);</span><br><span class="line"><span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure>
+<p>这里由于是编程语言的实现，那么我们依赖于权限的问题也得到了解决，如第5行中代码返回<code>404</code>错误一样，我们也可以进行逻辑判断并返回<code>401</code>错误</p>
+<p>并且同时，这里的下载也会从我们的数据库里面寻找文件，不用再被web服务器的二级目录所困扰，并且如果更加深入一下，额外的代码也可以降低我们的资源被盗用的风险。</p>
+<p>以下是node的http框架<code>koa</code>的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)()</span><br><span class="line"><span class="keyword">const</span> send = <span class="built_in">require</span>(<span class="string">'koa-send'</span>);</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/image'</span>, <span class="keyword">async</span> ctx =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> mongo = <span class="keyword">new</span> Database()</span><br><span class="line">  <span class="keyword">const</span> db = <span class="keyword">await</span> mongo.init()</span><br><span class="line">  <span class="keyword">let</span> platform = <span class="keyword">await</span> db.collection(<span class="string">'platform'</span>).findOne(&#123; <span class="string">"_id"</span>: <span class="string">"10010"</span> &#125;)</span><br><span class="line">  <span class="keyword">if</span> (platform) &#123;</span><br><span class="line">    ctx.attachment(platform.fileName);</span><br><span class="line">    <span class="keyword">await</span> send(ctx, platform.fileName, &#123; <span class="attr">root</span>: <span class="string">`<span class="subst">$&#123;__dirname&#125;</span>/../<span class="subst">$&#123;platform.filePath&#125;</span>`</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    ctx.body = &#123;</span><br><span class="line">      data: &#123;&#125;,</span><br><span class="line">      code: <span class="number">400</span>,</span><br><span class="line">      message: <span class="string">'获取失败'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  db.close()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>也很简单方便</p>
 
-  
+        
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
   
   
   
+  </article>
 
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
+    
+        <article itemscope itemtype="http://schema.org/Article">
   
   
-  <div class="post-block">
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/06/10/React与面向对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -320,74 +357,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="黄济芃的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/10/React与面向对象/" itemprop="url">
-                  React与面向对象
-                </a>
-              
+        <h2 class="post-title" itemprop="name headline">
             
-          </h2>
-        
+            <a href="/2018/06/10/React与面向对象/" class="post-title-link" itemprop="url">React与面向对象</a>
+          
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-06-10 13:21:23" itemprop="dateCreated datePublished" datetime="2018-06-10T13:21:23+08:00">2018-06-10</time>
+            </span>
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-07-20 19:29:54" itemprop="dateModified" datetime="2018-07-20T19:29:54+08:00">2018-07-20</time>
-              
+              </span>
             
-          </span>
-
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
 
@@ -398,21 +405,9 @@
           
 
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -420,12 +415,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>实际上官方提供给我们的教程已经非常清晰明确了<a href="https://reactjs.org/tutorial/tutorial.html#before-we-start" target="_blank" rel="noopener">reactjs.org</a></p>
+          <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>实际上官方提供给我们的教程已经非常清晰明确了<a href="https://reactjs.org/tutorial/tutorial.html#before-we-start" target="_blank" rel="noopener">reactjs.org</a></p>
 <p>当我们安装好之后，就会拥有一个<code>create-react-app</code>对应模板的react应用</p>
 <p>结构如下:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── README.md</span><br><span class="line">├── src</span><br><span class="line">└── yarn.lock</span><br></pre></td></tr></table></figure>
@@ -475,58 +465,29 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="number">1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  anotherOne() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'another one'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  changeValue(val = <span class="string">'x'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">value</span>: val&#125;);</span><br><span class="line">    <span class="keyword">this</span>.anotherOne();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span> onClick=&#123;() =&gt; <span class="keyword">this</span>.changeValue()&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.props.name&#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
 <p>实际上无论是vue还是react，其中的设计思想都是平时比较常用的，理解了他们相通的地方，学习使用起来就会更为容易。</p>
 
-          
         
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-      
-
-  
-
+        <article itemscope itemtype="http://schema.org/Article">
   
   
   
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2018/05/29/SQL与优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -538,74 +499,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="黄济芃的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/29/SQL与优化/" itemprop="url">
-                  SQL与优化
-                </a>
-              
+        <h2 class="post-title" itemprop="name headline">
             
-          </h2>
-        
+            <a href="/2018/05/29/SQL与优化/" class="post-title-link" itemprop="url">SQL与优化</a>
+          
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
               
                 
               
 
               <time title="创建时间：2018-05-29 21:09:38" itemprop="dateCreated datePublished" datetime="2018-05-29T21:09:38+08:00">2018-05-29</time>
+            </span>
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-09-25 19:05:53" itemprop="dateModified" datetime="2018-09-25T19:05:53+08:00">2018-09-25</time>
-              
+              </span>
             
-          </span>
-
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a></span>
 
@@ -616,21 +547,9 @@
           
 
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
 
         </div>
       </header>
-    
 
     
     
@@ -638,12 +557,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <blockquote>
+          <blockquote>
 <p>在大多数的sql学习中，众多学习者(包括我)，可能非常容易在学习中浅尝辄止，满足于基础的增删改查，进而往往忽略了sql为我们提供的更多高效的特性，从而无论在开发还是使用上都会造成不便</p>
 </blockquote>
 <h2 id="HAVING-子句"><a href="#HAVING-子句" class="headerlink" title="HAVING 子句"></a>HAVING 子句</h2><p>在日常使用中，使用较多的一种数据处理形式就是数据聚合，数据聚合令人第一时间想到的就是<code>GROUP BY</code>语句，具体使用可能如下:</p>
@@ -705,44 +619,25 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> eq_sample</span><br><span class="line"><span class="keyword">WHERE</span> (sender_id, lab_id)</span><br><span class="line"><span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span>, lab_id <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> atime &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>则会让sql重复使用一个子查询，尽量提高效率</p>
 
-          
         
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
   </div>
   
   
   
   </article>
 
-
     
-  </section>
+  </div>
 
   
   <nav class="pagination">
@@ -750,12 +645,10 @@
   </nav>
 
 
-
           </div>
           
 
         </div>
-        
           
   
   <div class="sidebar-toggle">
@@ -766,146 +659,113 @@
     </div>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">HuangStomach</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
       
-
       
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">HuangStomach</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
+      <div class="site-state-item site-state-categories">
+        
           
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">12</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">分类</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">10</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
+            <a href="/categories/">
           
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/HuangStomach" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i></a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="mailto:bendanqusi@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i></a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://www.facebook.com/profile.php?id=100012662087547" target="_blank" title="FB Page" rel="external nofollow"><i class="fa fa-fw fa-facebook"></i></a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://www.instagram.com/jipeng.h" target="_blank" title="Instagram" rel="external nofollow"><i class="fa fa-fw fa-instagram"></i></a>
-                  
-                </span>
-              
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </section>
-
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
       
-
       
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/HuangStomach" title="GitHub &rarr; https://github.com/HuangStomach" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:bendanqusi@gmail.com" title="E-Mail &rarr; mailto:bendanqusi@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://www.facebook.com/profile.php?id=100012662087547" title="FB Page &rarr; https://www.facebook.com/profile.php?id=100012662087547" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://www.instagram.com/jipeng.h" title="Instagram &rarr; https://www.instagram.com/jipeng.h" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
@@ -916,31 +776,16 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">HuangStomach</span>
-
-  
-
-  
 </div>
-
-
-  
-
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
-
-
-
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" rel="external nofollow" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
-
-
-
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.0</div>
 
         
+
+
+
+
 
 
 
@@ -952,108 +797,18 @@
         
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
 
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
-
-
-
-  
-
-
-
-	
-
-
-
-
-
-  
-
-
+<script src="/js/next-boot.js?v=7.4.0"></script>
 
 
 
@@ -1064,63 +819,20 @@
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-      <style>
-        a.gitment-editor-footer-tip { display: none; }
-        .gitment-container.gitment-footer-container { display: none; }
-      </style>
-    
-
-    
 
 
 
 
 
 
-  
 
 
 
 
 
-  
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
 
 
-  
 
-  
-  
-
-  
-
-  
 
   
 
