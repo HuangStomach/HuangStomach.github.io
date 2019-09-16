@@ -56,7 +56,7 @@
 </script>
 
   <meta name="description" content="在日常的后端开发中， 不可避免的就是要处理各种文件上传的需要， 随之而来的就是各种下载的需求， 我遇到的大部分开发者都会考虑到在上传的时候做简单的文件校验（有的也没有做）， 然而在文件下载的问题上， 则采用依赖于web服务器的静态文件传输， 经常造成很多的麻烦。  上传大部分开发者实际上在上传的时候都会对文件进行校验， 并且为了安全性考虑甚至会将文件更换名称。但是更换名称后简单的依赖于web服务">
-<meta name="keywords" content="Node,PHP">
+<meta name="keywords" content="PHP,Node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="静态文件与上传">
 <meta property="og:url" content="https://huangstomach.github.io/2018/07/09/静态文件与上传/index.html">
@@ -342,9 +342,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/Node/" rel="tag"># Node</a>
-            
               <a href="/tags/PHP/" rel="tag"># PHP</a>
+            
+              <a href="/tags/Node/" rel="tag"># Node</a>
             
           </div>
         
@@ -384,6 +384,9 @@
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -575,6 +578,24 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'bb617f90a00bd1501f32',
+      clientSecret: '8e9b1dd4d75c3d49d783cd641e833369cab296dd',
+      repo: 'HuangStomach.github.io',
+      owner: 'HuangStomach',
+      admin: ['HuangStomach'],
+      id: '7f75fb41e18e070987a142f83ba20657',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
