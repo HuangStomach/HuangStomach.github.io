@@ -575,3 +575,24 @@
 
 </body>
 </html>
+                                                                                                              st/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'bb617f90a00bd1501f32',
+      clientSecret: '8e9b1dd4d75c3d49d783cd641e833369cab296dd',
+      repo: 'HuangStomach.github.io',
+      owner: 'HuangStomach',
+      admin: ['HuangStomach'],
+      id: '44d65303f8b2fc07d232a907daa35dca',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
