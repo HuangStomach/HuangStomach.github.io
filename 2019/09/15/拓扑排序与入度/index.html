@@ -1,90 +1,54 @@
 <!DOCTYPE html>
-
-
-
-
-
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.7.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+<link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '7.4.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: '复制',
-      copy_success: '复制成功',
-      copy_failure: '复制失败'
-    },
-    sidebarPadding: 40
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huangstomach.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="最近在阅读清华大学的数据结构教材时，发现其中对于拓扑排序的更为易懂的实现。  拓扑排序，之前也写过，即为一种将杂乱无章的调度问题规划为一个线性的有序排列的排序算法，其中书上是这么描述的:  什么是拓扑排序？简单的说，由某个集合上的一个偏序得到该集合上的一个全序，这个操作称之为拓扑排序。  说实话如果对离散数学不太了解，突然一看还是很难懂的。不过其中对于该排序的实现则很简单易懂。 入度入度，这个概">
-<meta name="keywords" content="Algorithm,C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拓扑排序与入度">
-<meta property="og:url" content="https://huangstomach.github.io/2019/09/15/拓扑排序与入度/index.html">
+<meta property="og:url" content="https://huangstomach.github.io/2019/09/15/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%85%A5%E5%BA%A6/index.html">
 <meta property="og:site_name" content="黄济芃的博客">
 <meta property="og:description" content="最近在阅读清华大学的数据结构教材时，发现其中对于拓扑排序的更为易懂的实现。  拓扑排序，之前也写过，即为一种将杂乱无章的调度问题规划为一个线性的有序排列的排序算法，其中书上是这么描述的:  什么是拓扑排序？简单的说，由某个集合上的一个偏序得到该集合上的一个全序，这个操作称之为拓扑排序。  说实话如果对离散数学不太了解，突然一看还是很难懂的。不过其中对于该排序的实现则很简单易懂。 入度入度，这个概">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-15T15:02:10.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-15T03:25:06.000Z">
+<meta property="article:modified_time" content="2019-09-16T02:50:59.523Z">
+<meta property="article:author" content="HuangStomach">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="拓扑排序与入度">
-<meta name="twitter:description" content="最近在阅读清华大学的数据结构教材时，发现其中对于拓扑排序的更为易懂的实现。  拓扑排序，之前也写过，即为一种将杂乱无章的调度问题规划为一个线性的有序排列的排序算法，其中书上是这么描述的:  什么是拓扑排序？简单的说，由某个集合上的一个偏序得到该集合上的一个全序，这个操作称之为拓扑排序。  说实话如果对离散数学不太了解，突然一看还是很难懂的。不过其中对于该排序的实现则很简单易懂。 入度入度，这个概">
-  <link rel="canonical" href="https://huangstomach.github.io/2019/09/15/拓扑排序与入度/">
+
+<link rel="canonical" href="https://huangstomach.github.io/2019/09/15/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%85%A5%E5%BA%A6/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
   <title>拓扑排序与入度 | 黄济芃的博客</title>
   
-
-
 
 
 
@@ -103,7 +67,6 @@
   .use-motion .post-body,
   .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -117,96 +80,57 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
-
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">黄济芃的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-        <h1 class="site-subtitle" itemprop="description">这玩意能坚持写？</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">黄济芃的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这玩意能坚持写？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
+
+
 <nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-      
-      
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-      
-    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-      
-      
-      
-        
-        <li class="menu-item menu-item-about">
-      
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
-
-  </li>
-      
-      
-      
-        
-        <li class="menu-item menu-item-tags">
-      
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
-
-  </li>
-      
-      
-      
-        
-        <li class="menu-item menu-item-categories">
-      
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
-
-  </li>
-      
-      
-      
-        
         <li class="menu-item menu-item-archives">
-      
-    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
-
 </nav>
+
+
+
+
 </div>
     </header>
 
@@ -217,68 +141,59 @@
   </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
             
 
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-      <article itemscope itemtype="http://schema.org/Article">
+    
   
   
-  
-  <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2019/09/15/拓扑排序与入度/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huangstomach.github.io/2019/09/15/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%85%A5%E5%BA%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="HuangStomach">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="黄济芃的博客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">拓扑排序与入度
-
-          
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          拓扑排序与入度
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
-              <time title="创建时间：2019-09-15 11:25:06 / 修改时间：23:02:10" itemprop="dateCreated datePublished" datetime="2019-09-15T11:25:06+08:00">2019-09-15</time>
+              <time title="创建时间：2019-09-15 11:25:06" itemprop="dateCreated datePublished" datetime="2019-09-15T11:25:06+08:00">2019-09-15</time>
             </span>
-          
-            
-
-            
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-16 10:50:59" itemprop="dateModified" datetime="2019-09-16T10:50:59+08:00">2019-09-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
             </span>
-          
 
           
 
@@ -300,10 +215,11 @@
 </blockquote>
 <p>说实话如果对离散数学不太了解，突然一看还是很难懂的。不过其中对于该排序的实现则很简单易懂。</p>
 <h2 id="入度"><a href="#入度" class="headerlink" title="入度"></a>入度</h2><p>入度，这个概念其实很简单，之前所说拓扑排序基本是在<strong>有向无环图</strong>（即图中路径均是从一个节点指向另一个节点的，且其中不存在循环路径）中产生的，所以必然会有指向某个节点的路径。</p>
-<p>其中，被指向的路径的个数则称为入度，也可以想象成被多少个人指着，千夫所指的话这个人的入度就是这个<strong>千</strong>了。其中入度为0的节点（即没有路径指向该节点）则可以被视为起点，还是应用之前的<a href="https://huangstomach.github.io/2019/04/08/拓扑排序与装修/">装修例子</a>来表述，那么就是一项可以无需等待其他工程完成的工程，比如砸墙。</p>
+<p>其中，被指向的路径的个数则称为入度，也可以想象成被多少个人指着，千夫所指的话这个人的入度就是这个<strong>千</strong>了。其中入度为0的节点（即没有路径指向该节点）则可以被视为起点，还是应用之前的<a href="https://huangstomach.github.io/2019/04/08/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E8%A3%85%E4%BF%AE/">装修例子</a>来表述，那么就是一项可以无需等待其他工程完成的工程，比如砸墙。</p>
 <p>同样，出度所描述的就是该节点指向其他节点的路径数。</p>
 <h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>有了入度概念的引入拓扑排序就很简单了，简单的说我们就是要将当前可以直接进行的工作进行排序，于是我们可以直接在构造图，或者拿到图的时候，对其进行一个入度的记录并排序，简单的使用对象或数组都可以做到：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>我们只要找到一个起点，选择他为入度，就可以开始排序。</p>
 <p>将起点放入我们拓扑排序的栈顶，然后将该节点所链接的节点的入度均减少1，然后从中找到入度为0的节点，再次进行同样的操作，拓扑排序就简单的完成了：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 书中的示意代码</span></span><br><span class="line">InitStack(S);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i &lt; G.vexnum; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!indegree[i]) Push(S, i); <span class="comment">// 查找入度为0的节点</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (!StackEmpty(S)) &#123;</span><br><span class="line">    Pop(S, i); <span class="comment">// 取出入度为0的节点</span></span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">for</span> (Node p = G.verices[i].firstarc; p; p = p-&gt;nextarc) &#123;</span><br><span class="line">        k = p-&gt;adjvex;</span><br><span class="line">        <span class="keyword">if</span> (!--indegree[i]) Push(S, k); <span class="comment">// 入度减为0，则入栈</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (count &lt; G.vexnum) <span class="keyword">return</span> ERROR;</span><br></pre></td></tr></table></figure>
@@ -313,75 +229,69 @@
     
     
     
-        
-      
 
       <footer class="post-footer">
-          
-            
-          
           <div class="post-tags">
-            
               <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
-            
               <a href="/tags/C/" rel="tag"># C++</a>
-            
           </div>
-        
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2019/08/05/Git提交与修改/" rel="next" title="Git提交与修改">
-                  <i class="fa fa-chevron-left"></i> Git提交与修改
-                </a>
-              
-            </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-            </div>
-          </div>
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/05/Git%E6%8F%90%E4%BA%A4%E4%B8%8E%E4%BF%AE%E6%94%B9/" rel="prev" title="Git提交与修改">
+      <i class="fa fa-chevron-left"></i> Git提交与修改
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
     
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-  </div>
 
 
           </div>
           
-    
-    <div class="comments" id="gitalk-container"></div>
-  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
   <aside class="sidebar">
     <div class="sidebar-inner">
-        
-        
-        
-        
-      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -394,8 +304,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#入度"><span class="nav-number">1.</span> <span class="nav-text">入度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓扑排序"><span class="nav-number">2.</span> <span class="nav-text">拓扑排序</span></a></li></ol></div>
-        
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E5%BA%A6"><span class="nav-number">1.</span> <span class="nav-text">入度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">拓扑排序</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -404,72 +313,27 @@
   <p class="site-author-name" itemprop="name">HuangStomach</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-  <nav class="site-state motion-element">
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        
           <a href="/archives/">
         
           <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
-    
-      
-      
       <div class="site-state-item site-state-categories">
-        
-          
             <a href="/categories/">
-          
-        
         <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">分类</span>
-        </a>
+        <span class="site-state-item-name">分类</span></a>
       </div>
-    
-      
-      
       <div class="site-state-item site-state-tags">
-        
-          
             <a href="/tags/">
-          
-        
         <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">标签</span>
-        </a>
+        <span class="site-state-item-name">标签</span></a>
       </div>
-    
   </nav>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-      
-      
-      
-        
-      
-        <a href="https://github.com/HuangStomach" title="GitHub &rarr; https://github.com/HuangStomach" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-      
-        
-      
-        <a href="mailto:bendanqusi@gmail.com" title="E-Mail &rarr; mailto:bendanqusi@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-      
-        
-      
-        <a href="https://www.instagram.com/jipeng.h" title="Instagram &rarr; https://www.instagram.com/jipeng.h" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
-      </span>
-    
-  </div>
+</div>
 
 
 
@@ -483,17 +347,23 @@
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">HuangStomach</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.7.1</div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
 
         
 
@@ -504,74 +374,47 @@
 
 
 
-
-
-
-
-        
       </div>
     </footer>
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
-<script src="/js/schemes/pisces.js?v=7.4.0"></script>
-
-<script src="/js/next-boot.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: 'bb617f90a00bd1501f32',
-      clientSecret: '8e9b1dd4d75c3d49d783cd641e833369cab296dd',
-      repo: 'HuangStomach.github.io',
-      owner: 'HuangStomach',
-      admin: ['HuangStomach'],
-      id: '98170640f7941884ee75e3c0e9d6b6b5',
-        language: window.navigator.language || window.navigator.userLanguage,
-      
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-</script>
+  
 
 </body>
 </html>
