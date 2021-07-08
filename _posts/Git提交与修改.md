@@ -15,8 +15,6 @@ categories:
 Git提交是一件非常简单的事情，对于我来说不过是先检查一下需要提交的文件，然后直接一个`git commmit`就结束了的工作，当敲下回车，就会出现熟悉的界面：
 
 ``` vim
-new post Git提交与修改
-
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 #
