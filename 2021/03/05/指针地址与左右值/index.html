@@ -28,7 +28,7 @@
 <meta property="og:description" content="C++中，免不了要与指针和地址打交道，但是看着繁多的*和&amp;有时又容易混乱。 *与&amp;简单来说*在声明时代表的是变量所处地址的指针，可以理解为幸运大转盘的箭头，指向幸运大转盘的一个位置，也就是变量所处的地址。而&amp;表示的就是取该变量的地址，也就是大转盘针头指着的地方。 123456void main() &amp;#123;    int num &#x3D; 1;    cout &lt;&amp;lt">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-05T04:35:07.000Z">
-<meta property="article:modified_time" content="2022-09-20T13:47:20.406Z">
+<meta property="article:modified_time" content="2022-09-21T06:46:15.478Z">
 <meta property="article:author" content="HuangStomach">
 <meta property="article:tag" content="Cpp">
 <meta name="twitter:card" content="summary">
@@ -131,18 +131,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -231,7 +231,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-20 21:47:20" itemprop="dateModified" datetime="2022-09-20T21:47:20+08:00">2022-09-20</time>
+      <time title="修改时间：2022-09-21 14:46:15" itemprop="dateModified" datetime="2022-09-21T14:46:15+08:00">2022-09-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -255,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
         <p>C++中，免不了要与指针和地址打交道，但是看着繁多的<code>*</code>和<code>&amp;</code>有时又容易混乱。</p>
 <h2 id="与-amp"><a href="#与-amp" class="headerlink" title="*与&amp;"></a><code>*</code>与<code>&amp;</code></h2><p>简单来说<code>*</code>在声明时代表的是变量所处地址的指针，可以理解为幸运大转盘的箭头，指向幸运大转盘的一个位置，也就是变量所处的地址。而<code>&amp;</code>表示的就是取该变量的地址，也就是大转盘针头指着的地方。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">1</span>;</span><br><span class="line">    cout &lt;&lt; &amp;num &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span>* p = &amp;num;</span><br><span class="line">    cout &lt;&lt; p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">1</span>;</span><br><span class="line">    cout &lt;&lt; &amp;num &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span>* p = &amp;num;</span><br><span class="line">    cout &lt;&lt; p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如上所示，<code>&amp;num</code>打印出来后就是该变量所处的地址信息，也许是40013ac7H，而第四行的<code>int*</code>则是声明了一个指向<code>num</code>地址的指针，这里容易混淆，为何赋值表达式左右是<code>*</code>和<code>&amp;</code>，但意义却不一样？其中<code>*</code>更像一个定位的标志，告诉你该指针现在指向什么地方，比如在连续空间（如数组）中，可以通过对指针进行加法操作：<code>p++</code>来进行顺序访问数组元素，也就是让本指向数组中某个位置的箭头往后移动一位。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span>* p = &amp;num;</span><br><span class="line">    cout &lt;&lt; *p &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &amp;p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

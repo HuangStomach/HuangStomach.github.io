@@ -127,18 +127,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -181,6 +181,106 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://huangstomach.github.io/2022/09/21/pytorch%E4%B8%8Edataloader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HuangStomach">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huangstomach's Blog">
+      <meta itemprop="description" content="我要是真没坚持写来提issue催我">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Huangstomach's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/21/pytorch%E4%B8%8Edataloader/" class="post-title-link" itemprop="url">pytorch与dataloader</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-21 14:44:37 / 修改时间：20:29:07" itemprop="dateCreated datePublished" datetime="2022-09-21T14:44:37+08:00">2022-09-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">DeepLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>记录一下最近进行深度学习开发所使用的一些简单的操作</p>
+</blockquote>
+<h2 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h2><p><a target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch</a>是一个开源的深度学习框架，它为研究工作提供了灵活和模块化，并具有生产部署所需的稳定性和支持。<code>PyTorch</code>为张量计算（如<code>NumPy</code>）等高级功能提供了一个<code>Python包</code>，具有强大的GPU加速功能，并提供<code>TorchScript</code>，以便在急切模式和图形模式之间轻松转换。随着<code>PyTorch</code>的最新发布，该框架提供了基于图形的执行、分布式训练、移动部署和量化。</p>
+<p>虽然是由Meta的人工智能团队开发，但有时候Google团队居然也会使用。</p>
+<h2 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h2><p>在进行深度学习训练时，我们一般来说都会需要一个训练集，让我们的算法与模型来从其中学习规律（模式），从而达到基于学得的规律来进行决策的能力。</p>
+<p>在使用的深度学习框架时，往往就需要使用它们对应的数据集类，来进行数据的读取和处理。</p>
+<p>当然也可以不用，但是不使用的话在出现大规模计算等情况下自己实现一些方法太过复杂也没有必要，往往还是选择对应的框架提供的数据基类来进行实现。</p>
+<p>针对<code>Pytorch</code>来说，初始化一个基础的数据集类非常简单，以映射数据集为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, train = <span class="literal">True</span></span>):</span><br><span class="line">        self.device = device</span><br><span class="line">        self.train = train</span><br><span class="line">        </span><br><span class="line">        self.feature_x1 = torch.randn(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line">        self.feature_x2 = torch.randn(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line">        self.y = torch.randn(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, index</span>):</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            self.feature_x1[index], </span><br><span class="line">            self.feature_x2[index], </span><br><span class="line">            self.y[index]</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.y.size(dim=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_check_exists</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>只需要简单的继承<code>Dataset</code>类，然后实现<code>__init__</code>、<code>__getitem__</code>、<code>__len__</code>三个方法即可。</p>
+<p>其中<code>__len__</code>方法需要返回数据集的数据条目长度（样本规模），<code>__getitem__</code>方法需要返回对应索引的数据。</p>
+<p>代码中简单实现了一个具有两种特征的数据集，每个样本都有两个特征和一个标签，<code>__getitem__</code>方法返回的是一个元组，包含了对应索引的特征和标签。</p>
+<p>对于比较小的数据集，可以一股脑的把数据丢入模型中，直接进行梯度下降计算。不过有些数据集（比如计算机视觉）非常的大，可能无法一次性加载到内存中，所以可以考虑只在<code>__init__</code>时存储索引，而在<code>__getitem__</code>时再从硬盘读取，这样虽然比较慢但是可以节省内存。</p>
+<p>但有时候，我们需要使用GPU来进行训练，虽然整个数据集合在内存中可以存储，但传递到GPU中又有些勉强，这时候可以考虑使用<code>Dataloader</code>来进行数据的读取。</p>
+<h2 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line">train = MyDataset()</span><br><span class="line">trainLoader = DataLoader(train, batch_size=<span class="number">128</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">    <span class="keyword">for</span> x1, x2, y <span class="keyword">in</span> trainLoader:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>如代码所示，简易的DataLoader可以只传递三个参数，分别是数据集、<code>batch_size</code>和<code>shuffle</code>。</p>
+<p>其中<code>batch_size</code>来决定每次在GPU中进行张量计算的数据量，<code>shuffle</code>来决定是否在每个epoch开始时对数据进行打乱。</p>
+<p>这样在模型进行反向传播时就转化为了小批量梯度下降，虽然达到最优解的路程会比较坎坷，但是可以有效的减少内存占用，加快训练速度。</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>有时候我们的数据集合比较简单，但是计算机性能非常强大，有时候却反而会出现训练速度非常的慢，对应计算单元的占用也非常的低。这时候有一种可能是进行计算推演的时间远远小于将数据集转移到张量计算上的时间，可以考虑进一步增加<code>batch_size</code>来减小到GPU之间的数据交换次数。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -492,7 +592,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-20 21:47:20" itemprop="dateModified" datetime="2022-09-20T21:47:20+08:00">2022-09-20</time>
+      <time title="修改时间：2022-09-21 14:46:15" itemprop="dateModified" datetime="2022-09-21T14:46:15+08:00">2022-09-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -516,7 +616,7 @@
     <div class="post-body" itemprop="articleBody">
           <p>C++中，免不了要与指针和地址打交道，但是看着繁多的<code>*</code>和<code>&amp;</code>有时又容易混乱。</p>
 <h2 id="与-amp"><a href="#与-amp" class="headerlink" title="*与&amp;"></a><code>*</code>与<code>&amp;</code></h2><p>简单来说<code>*</code>在声明时代表的是变量所处地址的指针，可以理解为幸运大转盘的箭头，指向幸运大转盘的一个位置，也就是变量所处的地址。而<code>&amp;</code>表示的就是取该变量的地址，也就是大转盘针头指着的地方。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">1</span>;</span><br><span class="line">    cout &lt;&lt; &amp;num &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span>* p = &amp;num;</span><br><span class="line">    cout &lt;&lt; p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">1</span>;</span><br><span class="line">    cout &lt;&lt; &amp;num &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span>* p = &amp;num;</span><br><span class="line">    cout &lt;&lt; p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如上所示，<code>&amp;num</code>打印出来后就是该变量所处的地址信息，也许是40013ac7H，而第四行的<code>int*</code>则是声明了一个指向<code>num</code>地址的指针，这里容易混淆，为何赋值表达式左右是<code>*</code>和<code>&amp;</code>，但意义却不一样？其中<code>*</code>更像一个定位的标志，告诉你该指针现在指向什么地方，比如在连续空间（如数组）中，可以通过对指针进行加法操作：<code>p++</code>来进行顺序访问数组元素，也就是让本指向数组中某个位置的箭头往后移动一位。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span>* p = &amp;num;</span><br><span class="line">    cout &lt;&lt; *p &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &amp;p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1039,7 +1139,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-20 19:50:27" itemprop="dateModified" datetime="2022-09-20T19:50:27+08:00">2022-09-20</time>
+      <time title="修改时间：2022-09-21 14:45:51" itemprop="dateModified" datetime="2022-09-21T14:45:51+08:00">2022-09-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1064,29 +1164,29 @@
           <blockquote>
 <p>开发一种不断使用环的性质的算法来计算最小生成树</p>
 </blockquote>
-<h2 id="环的性质"><a href="#环的性质" class="headerlink" title="环的性质"></a>环的性质</h2><p>当构建出一副无向图的最小生成树时可以发现，在无向图中任意将一条边加入最小生成树，都会构建出一个环；因为生成树(不一定最小)实际上会达到图中的所有点，再加入任何一条边都相当于多连接了一遍两个顶点，必然会产生环。</p>
+<h2 id="环的性质"><a href="#环的性质" class="headerlink" title="环的性质"></a>环的性质</h2><p>当构建出一副无向图的最小生成树时可以发现，在无向图中任意将一条边加入最小生成树，都会构建出一个环；因为生成树(不一定最小)实际上会达到图中的所有点，再加入任何一条边都相当于多连接了一遍两个顶点，必然会产生环。</p>
 <p>利用这个性质，可一每次都从新产生的环中删除权重最大的边，来不停构造最小生成树。</p>
 <h2 id="Vyssotsky"><a href="#Vyssotsky" class="headerlink" title="Vyssotsky"></a>Vyssotsky</h2><p>首先可以先随便拟定一个生成树（不一定最小）:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">edges = <span class="keyword">new</span> <span class="title class_">Queue</span>&lt;Edge&gt;();</span><br><span class="line">mst = <span class="keyword">new</span> <span class="title class_">EdgeWeightedGraph</span>(G.V());</span><br><span class="line"><span class="type">boolean</span>[] marked = <span class="keyword">new</span> <span class="title class_">boolean</span>[G.V()];</span><br><span class="line"><span class="keyword">for</span> (Edge e: G.edges()) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> e.either();</span><br><span class="line">    <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> e.other(v);</span><br><span class="line">    <span class="keyword">if</span> (marked[v] &amp;&amp; marked[w]) &#123;</span><br><span class="line">        edges.enqueue(e);</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    marked[v] = <span class="literal">true</span>;</span><br><span class="line">    marked[w] = <span class="literal">true</span>;</span><br><span class="line">    mst.addEdge(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>使用<code>marked</code>来记录点是否已经被连接过，如果两个顶点均被连接过，则将该条边放入备选<code>edges</code>中，否则加入新图，也就是生成树中。</p>
-<p>然后不停地将备选边中的边加入到生成树中：</p>
+<p>然后不停地将备选边中的边加入到生成树中：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (edges.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">Edge</span> <span class="variable">e</span> <span class="operator">=</span> edges.dequeue();</span><br><span class="line">    mst.addEdge(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>此时一定会产生环，使用深度优先算法对环进行检测，从而找到权重最大的边：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> end, <span class="type">int</span> skip)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (Edge e: mst.adj(start)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (set.contains(e.weight())) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> e.other(start);</span><br><span class="line">        <span class="keyword">if</span> (v == skip) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (v == end || dfs(v, end, start)) &#123;</span><br><span class="line">            max = Math.max(max, e.weight());</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时一定会产生环，使用深度优先算法对环进行检测，从而找到权重最大的边：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> end, <span class="type">int</span> skip)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (Edge e: mst.adj(start)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (set.contains(e.weight())) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> e.other(start);</span><br><span class="line">        <span class="keyword">if</span> (v == skip) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (v == end || dfs(v, end, start)) &#123;</span><br><span class="line">            max = Math.max(max, e.weight());</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中寻找的时候要把前一条边的起点忽略掉，这里就没没有再使用<code>marked</code>数组了。</p>
 <h2 id="删除边"><a href="#删除边" class="headerlink" title="删除边"></a>删除边</h2><p>然后就是要将权重最大的边删除掉，这里给的加权无向图<code>EdgeWeightedGraph</code>中没有提供删除边的API，也没有说需要自行扩展，这里就利用了<strong>所有权重均不相同</strong>的性质，将最大权重加入到集合中:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (edges.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">Edge</span> <span class="variable">e</span> <span class="operator">=</span> edges.dequeue();</span><br><span class="line">    max = e.weight();</span><br><span class="line">    mst.addEdge(e);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> e.either();</span><br><span class="line">    dfs(v, e.other(v), e.other(v));</span><br><span class="line">    set.add(max);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样虽然是全部边都加入了新图中，但是在我们获取最小生成树的时候，如果遇到了边的权重在集合中，则进行跳过：</p>
+<p>这样虽然是全部边都加入了新图中，但是在我们获取最小生成树的时候，如果遇到了边的权重在集合中，则进行跳过：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Iterable&lt;Edge&gt; <span class="title function_">edges</span><span class="params">()</span> &#123;</span><br><span class="line">    Queue&lt;Edge&gt; queue = <span class="keyword">new</span> <span class="title class_">Queue</span>&lt;Edge&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Edge e: mst.edges()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (set.contains(e.weight())) <span class="keyword">continue</span>;</span><br><span class="line">        queue.enqueue(e);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> queue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>写了下测试，可以通过。整体代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">VyssotskyMST</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Queue&lt;Edge&gt; edges;</span><br><span class="line">    <span class="keyword">private</span> EdgeWeightedGraph mst;</span><br><span class="line">    <span class="keyword">private</span> HashSet set;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> max;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">VyssotskyMST</span><span class="params">(EdgeWeightedGraph G)</span> &#123;</span><br><span class="line">        edges = <span class="keyword">new</span> <span class="title class_">Queue</span>&lt;Edge&gt;();</span><br><span class="line">        set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;Double&gt;();</span><br><span class="line">        mst = <span class="keyword">new</span> <span class="title class_">EdgeWeightedGraph</span>(G.V());</span><br><span class="line">        <span class="type">boolean</span>[] marked = <span class="keyword">new</span> <span class="title class_">boolean</span>[G.V()];</span><br><span class="line">        <span class="keyword">for</span> (Edge e: G.edges()) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> e.either();</span><br><span class="line">            <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> e.other(v);</span><br><span class="line">            <span class="keyword">if</span> (marked[v] &amp;&amp; marked[w]) &#123;</span><br><span class="line">                edges.enqueue(e);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            marked[v] = <span class="literal">true</span>;</span><br><span class="line">            marked[w] = <span class="literal">true</span>;</span><br><span class="line">            mst.addEdge(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (edges.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">Edge</span> <span class="variable">e</span> <span class="operator">=</span> edges.dequeue();</span><br><span class="line">            max = e.weight();</span><br><span class="line">            mst.addEdge(e);</span><br><span class="line">            </span><br><span class="line">            <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> e.either();</span><br><span class="line">            dfs(v, e.other(v), e.other(v));</span><br><span class="line">            set.add(max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> end, <span class="type">int</span> skip)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (Edge e: mst.adj(start)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (set.contains(e.weight())) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> e.other(start);</span><br><span class="line">            <span class="keyword">if</span> (v == skip) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (v == end || dfs(v, end, start)) &#123;</span><br><span class="line">                max = Math.max(max, e.weight());</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Iterable&lt;Edge&gt; <span class="title function_">edges</span><span class="params">()</span> &#123;</span><br><span class="line">        Queue&lt;Edge&gt; queue = <span class="keyword">new</span> <span class="title class_">Queue</span>&lt;Edge&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Edge e: mst.edges()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (set.contains(e.weight())) <span class="keyword">continue</span>;</span><br><span class="line">            queue.enqueue(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> queue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">In</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">In</span>(args[<span class="number">0</span>]);</span><br><span class="line">        <span class="type">EdgeWeightedGraph</span> <span class="variable">G</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EdgeWeightedGraph</span>(in);</span><br><span class="line">        <span class="type">VyssotskyMST</span> <span class="variable">mst</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">VyssotskyMST</span>(G);</span><br><span class="line">        <span class="keyword">for</span> (Edge e: mst.edges()) &#123;</span><br><span class="line">            System.out.println(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>自己描述一边算法也是对思路的一个整理，现在发现其实在第一次遍历中就可以开始环的判断了，没有必要收集起来再做遍历。</p>
+<p>自己描述一边算法也是对思路的一个整理，现在发现其实在第一次遍历中就可以开始环的判断了，没有必要收集起来再做遍历。</p>
 <p>目前自己都觉得性能不太好，之后有机会还是会进行优化。</p>
 
       
@@ -1315,127 +1415,6 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"><span class="variable">$req</span>, <span class="variable">$res</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 跨域OPTIONS返回</span></span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>, <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span>, <span class="string">&#x27;GET, POST, DELETE, PUT, PATCH, OPTIONS&#x27;</span>);</span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>, <span class="string">&#x27;Authorization, User-Agent, Keep-Alive, Content-Type, X-Requested-With&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$req</span>-&gt;server[<span class="string">&#x27;request_method&#x27;</span>] == <span class="string">&#x27;OPTIONS&#x27;</span>) &#123;</span><br><span class="line">        <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">status</span>(<span class="title function_ invoke__">http_response_code</span>());</span><br><span class="line">        <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">end</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里我简单的加入了几个常用的<code>Methods</code>和<code>Headers</code>，这样实际上我们<code>Swoole</code>在接收到浏览器的跨域侦测时，就能返回正常的信息并继续跨域请求了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://huangstomach.github.io/2018/08/25/%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E4%B8%8E%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="HuangStomach">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huangstomach's Blog">
-      <meta itemprop="description" content="我要是真没坚持写来提issue催我">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Huangstomach's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/08/25/%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E4%B8%8E%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2/" class="post-title-link" itemprop="url">按需加载与代码分割</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-08-25 13:31:19" itemprop="dateCreated datePublished" datetime="2018-08-25T13:31:19+08:00">2018-08-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-20 20:40:24" itemprop="dateModified" datetime="2022-09-20T20:40:24+08:00">2022-09-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>之前在社交平台上随手给一个朋友回答了个小问题，发现按需加载和代码分割的概念非常容易混淆，也无法对前端应用的性能进行实质的提升</p>
-</blockquote>
-<h2 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h2><p>按需加载其实说起来非常高大上但是其实很简单，<a target="_blank" rel="noopener" href="http://element.eleme.io/#/zh-CN/component/quickstart">element官网</a>上就有简单的说明</p>
-<p>可以看到其使用了一个很简单的特性，ES6的import特性，可以简单的为我们引入需要的组件等:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Button</span>, <span class="title class_">Select</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="title class_">Button</span>.<span class="property">name</span>, <span class="title class_">Button</span>);</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="title class_">Select</span>.<span class="property">name</span>, <span class="title class_">Select</span>);</span><br><span class="line"><span class="comment">/* 或写为</span></span><br><span class="line"><span class="comment"> * Vue.use(Button)</span></span><br><span class="line"><span class="comment"> * Vue.use(Select)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>我们可以看到，其中在引入<code>element-ui</code>的时候，仅仅引入了我们所需要的两个组件。</p>
-<p><code>element-ui</code>为我们提供了许多丰富的组件，但是可能在日常开发中我们只能用到一小部分，那么这个特性就会很好的帮助我们进行第三方组件引入的最小化了。</p>
-<p>不过我遇到的这位朋友使用的方法让我意想不到，给我描述的情况是，他的确只引入了需要的组件，但是整个前端应用还是非常的庞大，导致首屏加载仍然非常缓慢。</p>
-<p>仔细询问发现，他只是单纯使用了按需加载的属性，将所有需要用到的组件都像实例那样进行了引入。实际上，如果仅仅单纯的地使用这个特性，在使用了80%以上组件的情况下，结果和整体引入ui库也并无区别。</p>
-<h2 id="代码分割"><a href="#代码分割" class="headerlink" title="代码分割"></a>代码分割</h2><p>在我看来，按需加载实际上和代码分割的辅助功能是相辅相成的，在没有代码分割之下，所有的按需加载实际上仍然会将所有的第三方库全部压缩到一个工程文件中，导致该文件下载缓慢，运行缓慢。</p>
-<p>实际上这一概念已经存在很久了无论是:</p>
-<p><a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html">vue-router 路由懒加载</a></p>
-<p>亦或是</p>
-<p><a target="_blank" rel="noopener" href="https://reactjs.org/docs/code-splitting.html">react code-splitting</a></p>
-<p>中都有提到，当然他们主要也是借用的<code>webpack</code>的一项特性<a target="_blank" rel="noopener" href="https://webpack.js.org/guides/code-splitting/">code-splitting</a></p>
-<p>我们在这篇介绍中可以看到，webpack为我们提供了一种动态<code>import</code>的功能：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">import</span>(<span class="comment">/* webpackChunkName: &quot;lodash&quot; */</span> <span class="string">&#x27;lodash&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>就像文章中所说的，这种写法会帮我们将引入的文件单独进行一个文件的分割打包，这样我们庞大的应用就会被我们精心地拆成一个个单独的js文件，互不影响，异步加载，极大地节省了我们的首屏加载时间。</p>
-<p>这里和<strong>按需加载</strong>是相辅相成的，我们可以把我们需要使用的第三方组件分布在我们的各个小组件中，并让这些组件进行代码分割，从而达到最大化优化效果的目的。</p>
-<p>同样我们可以看到这个语法中有一行注释：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/* webpackChunkName: &quot;lodash&quot; */</span><br></pre></td></tr></table></figure>
-
-<p><code>webpack</code>会根据我们注释中所写的<code>ChunkName</code>也就是我们为这个包起得名字，将相同名字的包打入到一个文件中，这样哪怕我们希望打入一个包的组件之间没有继承关系，也能在这里进行处理。</p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>代码分割和按需加载已经很大程度上为我们进行了前端优化了，我们还需要优化什么呢？</p>
-<p>我的一些同事在代码分割上做的不是很理智，这里我们先介绍一个<code>webpack</code>推荐的分析辅助插件<code>webpack-bundle-analyzer</code>。</p>
-<p>个人觉得这是一款非常好用的插件，只要进行简单的配置：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">BundleAnalyzerPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">analyzerMode</span>: <span class="string">&#x27;server&#x27;</span>,</span><br><span class="line">      <span class="attr">analyzerHost</span>: <span class="string">&#x27;0.0.0.0&#x27;</span>,</span><br><span class="line">      <span class="attr">analyzerPort</span>: <span class="number">8181</span>,</span><br><span class="line">      <span class="attr">reportFilename</span>: <span class="string">&#x27;report.html&#x27;</span>,</span><br><span class="line">      <span class="attr">defaultSizes</span>: <span class="string">&#x27;parsed&#x27;</span>,</span><br><span class="line">      <span class="attr">openAnalyzer</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">generateStatsFile</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">statsFilename</span>: <span class="string">&#x27;stats.json&#x27;</span>,</span><br><span class="line">      <span class="attr">statsOptions</span>: <span class="literal">null</span>,</span><br><span class="line">      <span class="attr">logLevel</span>: <span class="string">&#x27;info&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>配置项我这边不再赘述了，运行<code>NODE_ENV=production ANALYZ=true npm_config_report=true npm run build</code>后则会为我们生成一个直观的build报告：</p>
-<img src="/2018/08/25/%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E4%B8%8E%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2/1535175896358.jpg" class="">
-
-<p>我们可以看到，每一个文件都被分割成了和自身大小比例相等的块，抛去这些最大的引入，我们可以看到右下角有一些几乎看不清的小引入，这些都是同事开发的功能组件，非常的小。</p>
-<p>根据这个分析，我们可以得到目前占用体积最大的组件是哪几个，如果过多的占用了我们的加载时间，则应该进行继续分割优化。</p>
-<p>但是如果我们的组件非常的小，如右下方的组件，不足1KB，个人觉得就不用进行拆分了，和其父组件在一起就可以，否则这种细碎组件拆分过多，加载性能上没有太多提升反而加大了http请求的压力。</p>
 
       
     </div>
