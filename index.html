@@ -805,7 +805,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-20 19:50:27" itemprop="dateModified" datetime="2022-09-20T19:50:27+08:00">2022-09-20</time>
+      <time title="修改时间：2022-09-24 17:40:23" itemprop="dateModified" datetime="2022-09-24T17:40:23+08:00">2022-09-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -852,7 +852,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">date</span> -R</span><br><span class="line">Mon, 05 Aug 2019 10:50:35 +0800</span><br></pre></td></tr></table></figure>
 
 <p>然后再根据这个格式修改时间就可以完成修改commit提交时间的操作了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --<span class="built_in">date</span>=`Mon, 05 Aug 2019 10:50:35 +0800`</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --<span class="built_in">date</span>=<span class="string">&#x27;Mon, 05 Aug 2019 10:50:35 +0800&#x27;</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
