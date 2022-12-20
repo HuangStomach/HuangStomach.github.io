@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"huangstomach.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="github的一些简单妙用  Pull requestPull request在参与开源项目的时候是一个非常常用的功能，可以在提交代码时不影响到当前分支，并由项目所有团队进行审核讨论，依据结果考虑是否合并。 为开源项目贡献代码操作很简单，fork想要贡献的项目，然后在本地clone自己的项目，修改后提交到自己的项目，就可以在git上提交pr(pull request)了。 但是经常会遇到的一个问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pull request与diff">
+<meta property="og:url" content="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/index.html">
+<meta property="og:site_name" content="Huangstomach&#39;s Blog">
+<meta property="og:description" content="github的一些简单妙用  Pull requestPull request在参与开源项目的时候是一个非常常用的功能，可以在提交代码时不影响到当前分支，并由项目所有团队进行审核讨论，依据结果考虑是否合并。 为开源项目贡献代码操作很简单，fork想要贡献的项目，然后在本地clone自己的项目，修改后提交到自己的项目，就可以在git上提交pr(pull request)了。 但是经常会遇到的一个问">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/button.png">
+<meta property="og:image" content="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/pr.png">
+<meta property="og:image" content="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/sync.png">
+<meta property="og:image" content="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/diff.png">
+<meta property="article:published_time" content="2022-12-20T03:42:26.000Z">
+<meta property="article:modified_time" content="2022-12-20T05:35:41.515Z">
+<meta property="article:author" content="HuangStomach">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="Tools">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/button.png">
+
+
+<link rel="canonical" href="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/","path":"2022/12/20/Pull-request与diff/","title":"Pull request与diff"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Pull request与diff | Huangstomach's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Huangstomach's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这玩意能坚持写？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pull-request"><span class="nav-number">1.</span> <span class="nav-text">Pull request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Diff"><span class="nav-number">2.</span> <span class="nav-text">Diff</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">HuangStomach</p>
+  <div class="site-description" itemprop="description">我要是真没坚持写来提issue催我</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/huangstomach" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;huangstomach" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bendanqusi@gmail.com" title="E-Mail → mailto:bendanqusi@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.instagram.com/jipeng.h" title="Instagram → https:&#x2F;&#x2F;www.instagram.com&#x2F;jipeng.h" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/profiles/76561198080485484" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;profiles&#x2F;76561198080485484" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HuangStomach">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huangstomach's Blog">
+      <meta itemprop="description" content="我要是真没坚持写来提issue催我">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Pull request与diff | Huangstomach's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pull request与diff
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-20 11:42:26 / 修改时间：13:35:41" itemprop="dateCreated datePublished" datetime="2022-12-20T11:42:26+08:00">2022-12-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>github的一些简单妙用</p>
+</blockquote>
+<h2 id="Pull-request"><a href="#Pull-request" class="headerlink" title="Pull request"></a>Pull request</h2><p>Pull request在参与开源项目的时候是一个非常常用的功能，可以在提交代码时不影响到当前分支，并由项目所有团队进行审核讨论，依据结果考虑是否合并。</p>
+<p>为开源项目贡献代码操作很简单，fork想要贡献的项目，然后在本地clone自己的项目，修改后提交到自己的项目，就可以在git上提交pr(pull request)了。</p>
+<p>但是经常会遇到的一个问题，当提交完pr之后，源项目仍然会有其他的开发者贡献代码，当自己再想要提交pr的时候会发现本地的clone项目和源项目已经不一致了，这时候就需要同步源项目的代码到自己的项目了。</p>
+<p>不过这个功能很难在github上直接找到，不过可以先观察第一次创建pr时候的方法。以开源项目<a target="_blank" rel="noopener" href="https://github.com/mbrn/material-table">mbrn&#x2F;material-table</a>为例，当我们点击clone项目的<code>New pull request</code>按钮时：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/button.png" class="">
+
+<p>会跳转到提交新pr的页面，可以看到url形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/mbrn/material-table/compare/master...HuangStomach:material-table:master</span><br></pre></td></tr></table></figure>
+
+<p>的url，对应界面则可以看到：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/pr.png" class="">
+
+<p>直观的理解就是将本地clone项目的提交，形成pr提交到源项目。</p>
+<p>同理，为了实现同步源项目的代码到clone项目，我们只需要将url的内容进行调换，url形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/HuangStomach/material-table/compare/master...mbrn:material-table:master</span><br></pre></td></tr></table></figure>
+
+<p>将这个url输入到浏览器，可以看到：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/sync.png" class="">
+
+<p>我们就将源项目的代码提交同步到了自己的clone项目，这样就可以再次提交pr了。</p>
+<h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>diff这个功能很常用，在本地查阅自己的本地修改都涉及到哪些文件的哪些内容时经常会用到，往往出现在git的commit信息中。</p>
+<p>但有时候有这样的需求，希望观察某个提交head到某个提交head之间文件都做了哪些更改，可以考虑使用<code>git diff</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">usage: git diff [&lt;options&gt;] [&lt;commit&gt;] [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] --cached [--merge-base] [&lt;commit&gt;] [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] [--merge-base] &lt;commit&gt; [&lt;commit&gt;...] &lt;commit&gt; [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] &lt;commit&gt;...&lt;commit&gt; [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] &lt;blob&gt; &lt;blob&gt;</span><br><span class="line">   or: git diff [&lt;options&gt;] --no-index [--] &lt;path&gt; &lt;path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不过这种diff显示的输出被称为<code>source diff</code>，不是很直观。尤其在想整体显示具体更改了哪些内容时，这种diff显示就不太友好了。而这种需要，称之为<code>rich diff</code>。</p>
+<p><code>rich diff</code>由于其局限性难以在命令行中显示，此时可以考虑使用<code>git diff --word-diff</code>来通过<a target="_blank" rel="noopener" href="https://www.endpointdev.com/blog/2022/01/wdiff-alternative-git-diff-word-diff/">wdiff</a>进行展示。</p>
+<p>不过对应上文的url大法，我们也可以在github上更加直观的查看<code>rich diff</code>，考虑url形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/HuangStomach/&#123;rep&#125;/compare/&#123;commit_id&#125;...&#123;commit_id&#125;</span><br></pre></td></tr></table></figure>
+
+<p>则会在web页面直接输出该repository下两commit之间的不同，还可以更加优雅的直接显示<code>rich diff</code>：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/diff.png" class="">
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+              <a href="/tags/Tools/" rel="tag"># Tools</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/21/pytorch%E4%B8%8Edataloader/" rel="prev" title="pytorch与dataloader">
+                  <i class="fa fa-chevron-left"></i> pytorch与dataloader
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuangStomach</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

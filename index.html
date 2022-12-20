@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -181,6 +181,117 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://huangstomach.github.io/2022/12/20/Pull-request%E4%B8%8Ediff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HuangStomach">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huangstomach's Blog">
+      <meta itemprop="description" content="我要是真没坚持写来提issue催我">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Huangstomach's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/20/Pull-request%E4%B8%8Ediff/" class="post-title-link" itemprop="url">Pull request与diff</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-20 11:42:26 / 修改时间：13:35:41" itemprop="dateCreated datePublished" datetime="2022-12-20T11:42:26+08:00">2022-12-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>github的一些简单妙用</p>
+</blockquote>
+<h2 id="Pull-request"><a href="#Pull-request" class="headerlink" title="Pull request"></a>Pull request</h2><p>Pull request在参与开源项目的时候是一个非常常用的功能，可以在提交代码时不影响到当前分支，并由项目所有团队进行审核讨论，依据结果考虑是否合并。</p>
+<p>为开源项目贡献代码操作很简单，fork想要贡献的项目，然后在本地clone自己的项目，修改后提交到自己的项目，就可以在git上提交pr(pull request)了。</p>
+<p>但是经常会遇到的一个问题，当提交完pr之后，源项目仍然会有其他的开发者贡献代码，当自己再想要提交pr的时候会发现本地的clone项目和源项目已经不一致了，这时候就需要同步源项目的代码到自己的项目了。</p>
+<p>不过这个功能很难在github上直接找到，不过可以先观察第一次创建pr时候的方法。以开源项目<a target="_blank" rel="noopener" href="https://github.com/mbrn/material-table">mbrn&#x2F;material-table</a>为例，当我们点击clone项目的<code>New pull request</code>按钮时：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/button.png" class="">
+
+<p>会跳转到提交新pr的页面，可以看到url形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/mbrn/material-table/compare/master...HuangStomach:material-table:master</span><br></pre></td></tr></table></figure>
+
+<p>的url，对应界面则可以看到：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/pr.png" class="">
+
+<p>直观的理解就是将本地clone项目的提交，形成pr提交到源项目。</p>
+<p>同理，为了实现同步源项目的代码到clone项目，我们只需要将url的内容进行调换，url形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/HuangStomach/material-table/compare/master...mbrn:material-table:master</span><br></pre></td></tr></table></figure>
+
+<p>将这个url输入到浏览器，可以看到：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/sync.png" class="">
+
+<p>我们就将源项目的代码提交同步到了自己的clone项目，这样就可以再次提交pr了。</p>
+<h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>diff这个功能很常用，在本地查阅自己的本地修改都涉及到哪些文件的哪些内容时经常会用到，往往出现在git的commit信息中。</p>
+<p>但有时候有这样的需求，希望观察某个提交head到某个提交head之间文件都做了哪些更改，可以考虑使用<code>git diff</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">usage: git diff [&lt;options&gt;] [&lt;commit&gt;] [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] --cached [--merge-base] [&lt;commit&gt;] [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] [--merge-base] &lt;commit&gt; [&lt;commit&gt;...] &lt;commit&gt; [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] &lt;commit&gt;...&lt;commit&gt; [--] [&lt;path&gt;...]</span><br><span class="line">   or: git diff [&lt;options&gt;] &lt;blob&gt; &lt;blob&gt;</span><br><span class="line">   or: git diff [&lt;options&gt;] --no-index [--] &lt;path&gt; &lt;path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不过这种diff显示的输出被称为<code>source diff</code>，不是很直观。尤其在想整体显示具体更改了哪些内容时，这种diff显示就不太友好了。而这种需要，称之为<code>rich diff</code>。</p>
+<p><code>rich diff</code>由于其局限性难以在命令行中显示，此时可以考虑使用<code>git diff --word-diff</code>来通过<a target="_blank" rel="noopener" href="https://www.endpointdev.com/blog/2022/01/wdiff-alternative-git-diff-word-diff/">wdiff</a>进行展示。</p>
+<p>不过对应上文的url大法，我们也可以在github上更加直观的查看<code>rich diff</code>，考虑url形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/HuangStomach/&#123;rep&#125;/compare/&#123;commit_id&#125;...&#123;commit_id&#125;</span><br></pre></td></tr></table></figure>
+
+<p>则会在web页面直接输出该repository下两commit之间的不同，还可以更加优雅的直接显示<code>rich diff</code>：</p>
+<img src="/2022/12/20/Pull-request%E4%B8%8Ediff/diff.png" class="">
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1305,116 +1416,6 @@
 <p>实际上哪怕你不声明，<code>class</code>也会隐式的生成并调用构造函数。</p>
 <h2 id="还是Class"><a href="#还是Class" class="headerlink" title="还是Class"></a>还是Class</h2><p>这仍然是原型链的一种实现，不要想太多了。</p>
 <h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>我觉得最有用的特性现在看来还是尾递归优化……</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://huangstomach.github.io/2018/10/07/Swoole%E4%B8%8E%E8%B7%A8%E5%9F%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="HuangStomach">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huangstomach's Blog">
-      <meta itemprop="description" content="我要是真没坚持写来提issue催我">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Huangstomach's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/07/Swoole%E4%B8%8E%E8%B7%A8%E5%9F%9F/" class="post-title-link" itemprop="url">Swoole与跨域</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-07 19:29:55" itemprop="dateCreated datePublished" datetime="2018-10-07T19:29:55+08:00">2018-10-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-20 19:50:27" itemprop="dateModified" datetime="2022-09-20T19:50:27+08:00">2022-09-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Swoole"><a href="#Swoole" class="headerlink" title="Swoole"></a>Swoole</h2><p><a target="_blank" rel="noopener" href="https://wiki.swoole.com/">Swoole</a>是我经常在使用的PHP的协程高性能网络通信引擎，非常好用，为PHP又提供了许多出乎意料的使用拓展，如携程异步等。并且是由<code>C/C++</code>语言编写，作为一个扩展安装使用非常的简单。</p>
-<p>我在工作之余尝试将<code>Swoole</code>和公司框架<code>Gini</code>进行共同使用，效果不错，可见两者都符合低耦合的设计理念。简单的增加了一个<code>index.php</code>来作为程序的主入口，就非常简单的使用起了大部分功能。</p>
-<p>例如在接受<code>http</code>请求方面:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"><span class="variable">$req</span>, <span class="variable">$res</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$header</span> = <span class="variable">$req</span>-&gt;header;</span><br><span class="line">    <span class="variable">$_SERVER</span> = <span class="title function_ invoke__">array_merge</span>(<span class="variable">$_SERVER</span>, <span class="variable">$req</span>-&gt;server);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 传入res对象使后续可以对res对象进行操作</span></span><br><span class="line">    <span class="variable">$uri</span> = <span class="title function_ invoke__">trim</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;request_uri&#x27;</span>], <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    <span class="variable">$result</span> = \Gini\CGI::<span class="title function_ invoke__">request</span>(<span class="variable">$uri</span>, [</span><br><span class="line">        <span class="string">&#x27;header&#x27;</span> =&gt; <span class="variable">$header</span>,</span><br><span class="line">        <span class="string">&#x27;get&#x27;</span> =&gt; <span class="variable">$req</span>-&gt;get,</span><br><span class="line">        <span class="string">&#x27;post&#x27;</span> =&gt; <span class="variable">$req</span>-&gt;post,</span><br><span class="line">        <span class="string">&#x27;files&#x27;</span> =&gt; [], // 暂且先不考虑file</span><br><span class="line">        <span class="string">&#x27;route&#x27;</span> =&gt; <span class="variable">$uri</span>,</span><br><span class="line">        <span class="string">&#x27;method&#x27;</span> =&gt; <span class="variable">$_SERVER</span>[<span class="string">&#x27;request_method&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;swoole&#x27;</span> =&gt; <span class="variable">$this</span>-&gt;server, // swoole_server 对象</span><br><span class="line">        <span class="string">&#x27;raw&#x27;</span> =&gt; <span class="variable">$req</span>-&gt;<span class="title function_ invoke__">rawContent</span>(),</span><br><span class="line">    ])-&gt;<span class="title function_ invoke__">execute</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 防止php://output过多挤压supervisor.log</span></span><br><span class="line">    <span class="title function_ invoke__">ob_start</span>();</span><br><span class="line">    <span class="variable">$result</span>-&gt;<span class="title function_ invoke__">output</span>();</span><br><span class="line">    <span class="title function_ invoke__">ob_end_clean</span>();</span><br><span class="line"></span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">status</span>(<span class="title function_ invoke__">http_response_code</span>());</span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">end</span>(<span class="title function_ invoke__">J</span>(<span class="variable">$result</span>-&gt;<span class="title function_ invoke__">content</span>()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>就非常简单的可以将<code>Swoole</code>传递过来的请求，分发到<code>Gini</code>框架的路由当中去，再做各自的逻辑处理。</p>
-<p>但是当我部署到生产环境的时候，就出现了一件比较尴尬的事情，跨域警告了。</p>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>什么是跨域呢，前端可能接触的比较多，这并不是服务器做出的限制，而是浏览器的安全策略。</p>
-<p>浏览器为了防止不同域之间发生不安全的数据交互或者攻击，会默认阻止这种行为。但是有些时候我们的应用的确是部署在不同的域下，这时候我们就要了解跨域的原理了。</p>
-<p>当我们打开调试工具的时候，会发现在跨域请求之前，我们会看到一个类似这样的请求</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Request URL: http://path.to/api</span><br><span class="line">Request Method: OPTIONS</span><br></pre></td></tr></table></figure>
-
-<p>但是没有任何的消息体进行返回，然后就报错了，不能跨域。</p>
-<p>实际上，浏览器在阻止跨域请求之前，会向目标服务器发送一个这样的请求，来询问服务器：什么样子的请求可以跨域啊？</p>
-<p>然后服务器就会将自己的配置告诉浏览器，来方便做后续的判断。这也就是网上大部分的解决方案有效的原因了，比如<code>nginx</code>:</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Origin http://path.to;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Credentials <span class="literal">true</span>;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br></pre></td></tr></table></figure>
-
-<p>实际上就是告诉了浏览器，我允许跨域的<code>Origin</code>, <code>Headers</code>, <code>Methods</code>等，如果请求符合，则就可以进行正常的跨域请求。</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>这个在传统的<code>PHP</code>开发中很好解决，我们一般会在Web服务器如<code>nginx</code>或<code>apache</code>中进行修改解决，但是<code>Swoole</code>实际上自己充当了一部分<code>Http</code>服务器的角色，所以我们需要稍微做一下改动。</p>
-<p>上面说到了，具体能否跨域，主要取决于<code>OPTIONS</code>请求所返回的信息，所以我们可以在这里加以拦截:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"><span class="variable">$req</span>, <span class="variable">$res</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$req</span>-&gt;server[<span class="string">&#x27;request_method&#x27;</span>] == <span class="string">&#x27;OPTIONS&#x27;</span>) &#123;</span><br><span class="line">        <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">status</span>(<span class="title function_ invoke__">http_response_code</span>());</span><br><span class="line">        <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">end</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以终止后面的路由解析行为，防止后面的逻辑再做其他的处理，然后像nginx配置的那样，我们需要加上我们希望返回的头内容：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"><span class="variable">$req</span>, <span class="variable">$res</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 跨域OPTIONS返回</span></span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>, <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span>, <span class="string">&#x27;GET, POST, DELETE, PUT, PATCH, OPTIONS&#x27;</span>);</span><br><span class="line">    <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>, <span class="string">&#x27;Authorization, User-Agent, Keep-Alive, Content-Type, X-Requested-With&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$req</span>-&gt;server[<span class="string">&#x27;request_method&#x27;</span>] == <span class="string">&#x27;OPTIONS&#x27;</span>) &#123;</span><br><span class="line">        <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">status</span>(<span class="title function_ invoke__">http_response_code</span>());</span><br><span class="line">        <span class="variable">$res</span>-&gt;<span class="title function_ invoke__">end</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里我简单的加入了几个常用的<code>Methods</code>和<code>Headers</code>，这样实际上我们<code>Swoole</code>在接收到浏览器的跨域侦测时，就能返回正常的信息并继续跨域请求了。</p>
 
       
     </div>
