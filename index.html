@@ -127,18 +127,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -181,6 +181,100 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://huangstomach.github.io/2023/06/21/%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%8D%8F%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="HuangStomach">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huangstomach's Blog">
+      <meta itemprop="description" content="我要是真没坚持写来提issue催我">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Huangstomach's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/06/21/%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%8D%8F%E7%A8%8B/" class="post-title-link" itemprop="url">并发与协程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-06-21 19:53:03 / 修改时间：21:17:02" itemprop="dateCreated datePublished" datetime="2023-06-21T19:53:03+08:00">2023-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/General/" itemprop="url" rel="index"><span itemprop="name">General</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>有的时候总是能听到许多新的名词，并且背后的解释还容易令人混淆。有的时候重复造轮子，有的时候换汤不换药。</p>
+</blockquote>
+<h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><p>并发的概念经常可以听到，也总会和并行放到一起讨论，但是实际上并发和并行是两个不同的概念。简单来说并发可以认为是早期单核CPU做完成的工作，让多个程序来一段时间内来回切换让大家认为计算机在同时执行多个程序。而并行则是多核CPU的概念，可以真正的同时执行多个程序。</p>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>处理多个待定任务，一次处理一个或者一部分，然后转而处理另一个任务，再转而处理另一个任务，如此循环。对于单核的CPU，如果操作系统的调度程序支持交叉执行待定任务，也能实现并发。并发也叫多任务处理。</p>
+<h3 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h3><p>同时执行多个计算任务的能力。需要一个多核CPU、多个CPU、一个GPU或一个集群中的多台计算机。</p>
+<img src="/2023/06/21/%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%8D%8F%E7%A8%8B/compare.jpg" class="">
+
+<p>并行是真正意义上的同时做，类似于团队协作，多个人聚在一起分工合作完成一个任务。当然一个任务也可以由一个人来完成，但这些任务在一个人的手中永远是不停切换来做的，而不是真正意义上的同时做，这就是并发。</p>
+<p>并发和并行在开发中离不开执行单元的支持，比如进程、线程、协程等。</p>
+<h2 id="执行单元"><a href="#执行单元" class="headerlink" title="执行单元"></a>执行单元</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程是计算机程序运行时的一个实例，消耗内存和部分的CPU时间。进程与进程之间相互隔离，都隔离在自己的私有内存空间中，进程之间的通信需要通过进程间通信（IPC）的方式。进程可以派生子进程，子进程可以继承父进程的资源，但是子进程的内存空间是独立的。操作系统的调度程序会定期挂起运行中的进程，让其他进程运行，这样挂起单个进程不会导致整个系统的挂起。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>单个进程中的执行单元。一个进程启动后只使用一个主线程，但是可以创建多个子线程。线程之间共享进程的资源，比如内存空间，但是每个线程都有自己的寄存器和栈空间。线程之间的通信可以通过共享内存或者消息传递的方式。线程之间的切换不会导致整个进程的挂起，但是线程之间的切换需要操作系统的调度程序来完成。线程在同一份作业下，消耗的资源比进程少。</p>
+<h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>可以挂起自身并在以后恢复的函数。协程可以在执行过程中挂起，然后转而执行其他协程，这个过程可以重复多次。协程支持协作式多任务处理：一个协程必须使用<code>yield</code>或<code>await</code>或其他挂起点显式地放弃控制权，以便其他协程可以执行。协程可以在单线程中实现并发，因为它们是协作式的，而不是抢占式的。</p>
+<p>以前对协程的非常不理解，总觉得一定要属于更细粒度的线程以及具备更多的并发操作空间。实际上不然，协程主要是通过程序来控制并保存当前状态，切换代价较小，具备线程所不具备的效率。</p>
+<p>协程的实现方式有很多，比如Python中的<code>asyncio</code>，Go中的<code>goroutine</code>，Java中的<code>Quasar</code>等。其中Javascript中的<code>generator</code>和<code>async/await</code>是比较常用的。<code>async/await</code>也是生成器和<code>Promise</code>的语法糖，整体使用上比较简单，各种语言具体使用也极为相似。</p>
+<p>至于纤程的概念，<a target="_blank" rel="noopener" href="https://softwareengineering.stackexchange.com/questions/254140/is-there-a-difference-between-fibers-coroutines-and-green-threads-and-if-that-i">此文</a>中有详细的讨论，大部分场景下没有区别。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1317,123 +1411,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://huangstomach.github.io/2018/11/02/ECMAScript%E4%B8%8E%E8%AF%AF%E5%8C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="HuangStomach">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huangstomach's Blog">
-      <meta itemprop="description" content="我要是真没坚持写来提issue催我">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Huangstomach's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/11/02/ECMAScript%E4%B8%8E%E8%AF%AF%E5%8C%BA/" class="post-title-link" itemprop="url">ECMAScript与误区</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-11-02 22:56:21" itemprop="dateCreated datePublished" datetime="2018-11-02T22:56:21+08:00">2018-11-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-20 19:50:27" itemprop="dateModified" datetime="2022-09-20T19:50:27+08:00">2022-09-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>最近在和一些年轻的js开发者的交流中，发现大家对于一些ECMAScript标准仍然有一些误区</p>
-</blockquote>
-<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>在一些网络文章中，经常可以看到对于<code>const</code>的一些描述，大多数都是说明: <em>一旦声明则不可进行修改的常量</em></p>
-<p>我就经常会用这个来分辨一些只是浅尝辄止的开发者，也是我面试中的一个非常小的问题:</p>
-<p><em>当我声明了一个常量数组后，我还可以向内推送元素么？</em></p>
-<p>可惜很大一部分的同学都会回答我不能，因为声明了就不能改变。实际上，这里不能改变的不是值，而是指向的内存地址。</p>
-<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>往往一些简单的特性所隐藏的功能则经常带来一些问题，我认识的一些开发者极其热衷于使用箭头函数，哪怕是在第三方的库中。</p>
-<p>他们简单的认为箭头函数仅仅是简写了<code>function</code>关键字，然而当他们在一些内部函数或回调函数中尝试使用箭头函数的时候却发现，再也取不到相应<code>this</code>了。</p>
-<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>在<code>Proimse</code>普及之前，我们的代码经常是这样的:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a.<span class="title function_">do</span>(<span class="string">&#x27;sth&#x27;</span>, <span class="function"><span class="params">ra</span> =&gt;</span> &#123;</span><br><span class="line">    b.<span class="title function_">do</span>(<span class="string">&#x27;sth&#x27;</span>, <span class="function"><span class="params">rb</span> =&gt;</span> &#123;</span><br><span class="line">        c.<span class="title function_">do</span>(<span class="string">&#x27;sth&#x27;</span>, <span class="function"><span class="params">rc</span> =&gt;</span> &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>拜异步特性所赐，我们的代码经常写的像锥子。</p>
-<p>这时候<code>Promise</code>横空出世，然而周围的开发者90%居然会这么写:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a.<span class="title function_">then</span>(<span class="function"><span class="params">ra</span> =&gt;</span> &#123;</span><br><span class="line">    b.<span class="title function_">then</span>(<span class="function"><span class="params">rb</span> =&gt;</span> &#123;</span><br><span class="line">        c.<span class="title function_">then</span>(<span class="function"><span class="params">rc</span> =&gt;</span> &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>说实话，写的时候就没有疑问这和之前有什么区别么？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">ra</span> =&gt;</span> b)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">rb</span> =&gt;</span> c)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">rc</span> =&gt;</span> &#123; ... &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>解决回调嵌套地狱，才是<code>Promise</code>褒受欢迎的原因之一。</p>
-<h2 id="async"><a href="#async" class="headerlink" title="async"></a>async</h2><p>曾经有个同事向我强力推荐<code>koa</code>, 当时公司内部用<code>express</code>比较多，我就问他，为什么要用<code>koa</code>呢？</p>
-<p>回答居然是<code>koa</code>能用<code>async</code>……</p>
-<p><code>async</code>并不是一个指向性那么强的特性，实际上很多地方都能简单的用到，比如<code>express</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;*&#x27;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">// do sth</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>还有的朋友问过我，我都使用了这个特性了，为什么代码还是不像我想象中的运行呢？</p>
-<p>实际上<code>async</code>只是一个语法糖，只是让你用同步代码的编写方式来<strong>写</strong>异步代码而已，<code>ES6</code>中其他大部分的特性同理。</p>
-<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><p><code>React</code>充分应用着<code>class</code>的特性，虽然我没有仔细阅读过源码去看具体的实现是否和<code>ES6</code>中的完全相符，我经常看到这样的代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Component</span> extend <span class="title class_">React</span>.<span class="property">Component</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span> (props) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(props)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>实际上哪怕你不声明，<code>class</code>也会隐式的生成并调用构造函数。</p>
-<h2 id="还是Class"><a href="#还是Class" class="headerlink" title="还是Class"></a>还是Class</h2><p>这仍然是原型链的一种实现，不要想太多了。</p>
-<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>我觉得最有用的特性现在看来还是尾递归优化……</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1447,7 +1424,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
