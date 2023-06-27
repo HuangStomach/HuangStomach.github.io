@@ -226,7 +226,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-27 19:07:51" itemprop="dateModified" datetime="2023-06-27T19:07:51+08:00">2023-06-27</time>
+      <time title="修改时间：2023-06-27 20:30:12" itemprop="dateModified" datetime="2023-06-27T20:30:12+08:00">2023-06-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -264,6 +264,7 @@
 <p>以前对协程的非常不理解，总觉得一定要属于更细粒度的线程以及具备更多的并发操作空间。实际上不然，协程主要是通过程序来控制并保存当前状态，切换代价较小，具备线程所不具备的效率。</p>
 <p>例如在网络请求中，数据需要经过网络以及其他的IO缓冲区，此时可以应用协程发出请求后立即转移CPU所有权，等待数据返回后再将CPU所有权转移回协程，这样就可以在等待数据的时候不阻塞主线程，提高了程序的执行效率。</p>
 <p>或者遍历发送多个网络请求，在使用协程时，每个协程在发送请求后不会阻塞，控制权会交还给事件循环，于是可以同时发送多个请求而不用排队等待。最后可以遍历协程的实例来按照完成顺序获得结果。</p>
+<p>再或者在构建Web服务的时候，定义接收请求的函数为协程，当遇到IO阻塞操作时将其交由协程操作（或特殊情况交由其他线程），可以不阻塞主线程，使其可以转而处理其他请求，实现了在单线程中处理多请求的效果。</p>
 <p>协程的实现方式有很多，比如Python中的<code>asyncio</code>，Go中的<code>goroutine</code>，Java中的<code>Quasar</code>等。其中Javascript中的<code>generator</code>和<code>async/await</code>是比较常用的。<code>async/await</code>也是生成器和<code>Promise</code>的语法糖，整体使用上比较简单，各种语言具体使用也极为相似。</p>
 <p>至于纤程的概念，<a target="_blank" rel="noopener" href="https://softwareengineering.stackexchange.com/questions/254140/is-there-a-difference-between-fibers-coroutines-and-green-threads-and-if-that-i">此文</a>中有详细的讨论，大部分场景下没有区别。</p>
 
