@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://huangstomach.github.io/2023/06/21/%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%8D%8F%E7%A8%8B/compare.jpg">
 <meta property="article:published_time" content="2023-06-21T11:53:03.000Z">
-<meta property="article:modified_time" content="2023-06-21T13:17:02.714Z">
+<meta property="article:modified_time" content="2023-06-27T11:07:51.521Z">
 <meta property="article:author" content="HuangStomach">
 <meta property="article:tag" content="General">
 <meta name="twitter:card" content="summary">
@@ -225,9 +225,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-06-21 19:53:03 / 修改时间：21:17:02" itemprop="dateCreated datePublished" datetime="2023-06-21T19:53:03+08:00">2023-06-21</time>
+      <time title="创建时间：2023-06-21 19:53:03" itemprop="dateCreated datePublished" datetime="2023-06-21T19:53:03+08:00">2023-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-27 19:07:51" itemprop="dateModified" datetime="2023-06-27T19:07:51+08:00">2023-06-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -263,6 +269,8 @@
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>单个进程中的执行单元。一个进程启动后只使用一个主线程，但是可以创建多个子线程。线程之间共享进程的资源，比如内存空间，但是每个线程都有自己的寄存器和栈空间。线程之间的通信可以通过共享内存或者消息传递的方式。线程之间的切换不会导致整个进程的挂起，但是线程之间的切换需要操作系统的调度程序来完成。线程在同一份作业下，消耗的资源比进程少。</p>
 <h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>可以挂起自身并在以后恢复的函数。协程可以在执行过程中挂起，然后转而执行其他协程，这个过程可以重复多次。协程支持协作式多任务处理：一个协程必须使用<code>yield</code>或<code>await</code>或其他挂起点显式地放弃控制权，以便其他协程可以执行。协程可以在单线程中实现并发，因为它们是协作式的，而不是抢占式的。</p>
 <p>以前对协程的非常不理解，总觉得一定要属于更细粒度的线程以及具备更多的并发操作空间。实际上不然，协程主要是通过程序来控制并保存当前状态，切换代价较小，具备线程所不具备的效率。</p>
+<p>例如在网络请求中，数据需要经过网络以及其他的IO缓冲区，此时可以应用协程发出请求后立即转移CPU所有权，等待数据返回后再将CPU所有权转移回协程，这样就可以在等待数据的时候不阻塞主线程，提高了程序的执行效率。</p>
+<p>或者遍历发送多个网络请求，在使用协程时，每个协程在发送请求后不会阻塞，控制权会交还给事件循环，于是可以同时发送多个请求而不用排队等待。最后可以遍历协程的实例来按照完成顺序获得结果。</p>
 <p>协程的实现方式有很多，比如Python中的<code>asyncio</code>，Go中的<code>goroutine</code>，Java中的<code>Quasar</code>等。其中Javascript中的<code>generator</code>和<code>async/await</code>是比较常用的。<code>async/await</code>也是生成器和<code>Promise</code>的语法糖，整体使用上比较简单，各种语言具体使用也极为相似。</p>
 <p>至于纤程的概念，<a target="_blank" rel="noopener" href="https://softwareengineering.stackexchange.com/questions/254140/is-there-a-difference-between-fibers-coroutines-and-green-threads-and-if-that-i">此文</a>中有详细的讨论，大部分场景下没有区别。</p>
 
