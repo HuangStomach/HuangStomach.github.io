@@ -1,8 +1,3 @@
----
-layout: default
-title: Home
----
-
 some text
 
 <h1>{{ page.title }}</h1>
