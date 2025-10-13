@@ -1,3 +1,5 @@
-theme: jekyll-theme-minimal
+remote_theme: pages-themes/architect@v0.2.0
+plugins:
+- jekyll-remote-theme
 title: Huangstomach's Blog
 description: 我要是真没坚持写来提issue催我
